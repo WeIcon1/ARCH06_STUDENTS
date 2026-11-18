@@ -1,0 +1,60 @@
+
+> atlas-ui-css-architecture-rescue@0.6.0 test:all
+> npm test && npm run test:e2e
+
+
+> atlas-ui-css-architecture-rescue@0.6.0 test
+> node --test tests/architecture.test.mjs
+
+✔ 01 — порядок слоёв объявлен явно (1.0989ms)
+✔ 02 — унаследованные стили импортированы в legacy-слой (0.3109ms)
+✔ 03 — архитектура не использует !important (0.1775ms)
+✔ 04 — модальное окно открывается через showModal() (0.4268ms)
+✔ 05 — состояния focus-visible описаны для кнопки и переключателя (0.1283ms)
+✔ 06 — переключатель не скрыт через display:none (0.1446ms)
+✔ 07 — визуальные стили компонентов зависят от токенов, не от жёстких hex (0.143ms)
+✔ 08 — глобальный .is-danger не должен перезаписывать разные компоненты (0.155ms)
+✔ 09 — ошибки поля показываются по aria-invalid, не сразу по :invalid (0.1247ms)
+✔ 10 — компонентные CSS не содержат фиксированных мобильных min-width (0.1484ms)
+✔ 11 — кнопка имеет один базовый блок .ui-button (0.1388ms)
+✔ 12 — предусмотрен режим reduced motion (0.2437ms)
+✔ 13 — отсутствует опасный :is со смешанным ID и классом (0.0931ms)
+✔ 14 — нативные disabled атрибуты присутствуют (0.0812ms)
+✔ 15 — все семь семейств представлены на стенде (0.1588ms)
+✔ 16 — диалог имеет доступное имя (0.0768ms)
+✔ 17 — модификаторы риска не зависят от служебного .is-danger (0.2151ms)
+✔ 18 — провайдерские селекторы не нацелены на библиотеку и глобальные html-элементы (0.3209ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 74.1481
+
+> atlas-ui-css-architecture-rescue@0.6.0 test:e2e
+> playwright test
+
+[WebServer] (node:34256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 11 tests using 2 workers
+
+(node:34356) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\browser\quality.spec.js:12:3 › status text meets 4.5:1 contrast in light (279ms)
+  ok  2 tests\browser\ui.spec.js:3:1 › native dialog is truly modal and Escape restores focus (367ms)
+  ok  3 tests\browser\quality.spec.js:12:3 › status text meets 4.5:1 contrast in dark (229ms)
+  ok  4 tests\browser\ui.spec.js:15:1 › switch is keyboard reachable and Space toggles it (198ms)
+  ok  5 tests\browser\quality.spec.js:35:1 › card action follows container size and leaves other buttons independent (242ms)
+  ok  6 tests\browser\ui.spec.js:24:1 › field does not display error before user interacts (231ms)
+  ok  7 tests\browser\quality.spec.js:61:1 › reduced motion removes button movement and transition duration (221ms)
+  ok  8 tests\browser\ui.spec.js:35:1 › no horizontal viewport overflow at 320, 375, 768, 1024, 1440, 1920 (336ms)
+  ok  9 tests\browser\quality.spec.js:71:1 › vendor button toggles details and preserves the component button radius (206ms)
+  ok 10 tests\browser\ui.spec.js:44:1 › primary button uses theme tokens (241ms)
+  ok 11 tests\browser\ui.spec.js:52:1 › alert is dismissible and restore action works (212ms)
+
+  11 passed (3.0s)

@@ -1,0 +1,23 @@
+--- a/css/components.css
++++ b/css/components.css
+@@ -133,6 +133,7 @@
+ }
+ 
+ .ui-card {
++  container: ui-card / inline-size;
+   display: flex;
+   flex-direction: column;
+   min-inline-size: 0;
+@@ -173,6 +174,12 @@
+ .ui-card > .ui-card__action {
+   align-self: flex-start;
+   margin-block-start: auto;
++}
++
++@container ui-card (max-width: 400px) {
++  .ui-card > .ui-card__action {
++    inline-size: 100%;
++  }
+ }
+ 
+ .ui-tag {

@@ -1,0 +1,242 @@
+Chrome 157.0.8103.79 / Playwright
+Для каждого сценария исходник и результат проверены в одном браузере.
+
+M01 button / primary / default / light / 1440 px
+Ожидание: Фон из --color-accent и скругление 12 px
+До FAIL: Фон #2939a8, радиус 0px
+После OK: Фон #3659d9, радиус 12px
+
+M02 button / primary / focus-visible / dark / 375 px
+Ожидание: Tab даёт видимое кольцо фокуса
+До FAIL: Контур none
+После OK: Контур solid
+
+M03 button / danger / hover / light / 768 px
+Ожидание: Hover меняет фон danger
+До FAIL: #a41e24 → #a41e24
+После OK: #bb283a → #a22132
+
+M04 button / secondary / disabled / dark / 320 px
+Ожидание: Нативный disabled и отсутствие реакции на мышь
+До FAIL: Нет образца secondary:disabled
+После OK: Родной disabled, фокус false, фон #202e4a
+
+M05 field / email / untouched-invalid / light / 1440 px
+Ожидание: Нет aria-invalid и ошибочного фона
+До FAIL: Фон #fff0f2, aria-invalid нет
+После OK: Фон #ffffff, aria-invalid нет
+
+M06 field / email / invalid-after-blur / dark / 375 px
+Ожидание: aria-invalid=true и связанное видимое сообщение
+До FAIL: aria-invalid true, сообщение отсутствует
+После OK: aria-invalid true, сообщение видно
+
+M07 card / featured / long-text / light / 320 px
+Ожидание: Заголовок переносится и карточка помещается
+До FAIL: Карточка 352 px, сетка 264 px, заголовок 65 px
+После OK: Карточка 264 px, сетка 264 px, заголовок 86 px
+
+M08 card / default / nested-alert / dark / 375 px
+Ожидание: Вложенный текст получает цвет и размер уведомления
+До FAIL: Текст #bcc8dc, 11.04px
+После OK: Текст #ffe0a3, 13.28px
+
+M09 tag / danger / static / light / 375 px
+Ожидание: Нет реакции на hover и Tab
+До FAIL: Курсор pointer, filter brightness(0.94), tabIndex -1
+После OK: Курсор auto, filter none, tabIndex -1
+
+M10 alert / warning / dark-contrast / dark / 375 px
+Ожидание: Фон соответствует теме, контраст текста ≥ 4,5
+До FAIL: Фон #574223, контраст 1.87
+После OK: Фон #574223, контраст 7.44
+
+M11 switch / enabled / keyboard-space / light / 375 px
+Ожидание: Space включает выключенный checkbox
+До FAIL: Фокус BODY, checked false
+После OK: Фокус switch-autosave, checked true
+
+M12 switch / disabled / tab-skip / dark / 375 px
+Ожидание: Tab проходит активные элементы и пропускает disabled
+До FAIL: BUTTON → BUTTON → BODY
+После OK: switch-notifications → switch-autosave → BUTTON
+
+M13 dialog / open / modal-focus / light / 1024 px
+Ожидание: Модальность, автофокус, фон недоступен
+До FAIL: :modal false, фокус Закрыть окно, фон доступен true
+После OK: :modal true, фокус dialog-team, фон доступен false
+
+M14 dialog / closed / escape-focus-return / dark / 375 px
+Ожидание: Escape закрывает окно и возвращает фокус
+До FAIL: Окно открыто true, фокус Закрыть окно
+После OK: Окно открыто false, фокус open-dialog
+
+M15 layout / stand / viewport / light / 320 px
+Ожидание: Ширина документа совпадает с viewport
+До FAIL: scrollWidth 380 px
+После OK: scrollWidth 320 px
+
+M16 layout / stand / viewport / dark / 320 px
+Ожидание: Ширина документа совпадает с viewport
+До FAIL: scrollWidth 380 px
+После OK: scrollWidth 320 px
+
+M17 layout / stand / viewport / light / 375 px
+Ожидание: Ширина документа совпадает с viewport
+До FAIL: scrollWidth 380 px
+После OK: scrollWidth 375 px
+
+M18 layout / stand / viewport / dark / 375 px
+Ожидание: Ширина документа совпадает с viewport
+До FAIL: scrollWidth 380 px
+После OK: scrollWidth 375 px
+
+M19 layout / stand / viewport / light / 768 px
+Ожидание: Ширина документа совпадает с viewport
+До OK: scrollWidth 768 px
+После OK: scrollWidth 768 px
+
+M20 layout / stand / viewport / dark / 768 px
+Ожидание: Ширина документа совпадает с viewport
+До OK: scrollWidth 768 px
+После OK: scrollWidth 768 px
+
+M21 layout / stand / viewport / light / 1024 px
+Ожидание: Ширина документа совпадает с viewport
+До OK: scrollWidth 1024 px
+После OK: scrollWidth 1024 px
+
+M22 layout / stand / viewport / dark / 1024 px
+Ожидание: Ширина документа совпадает с viewport
+До OK: scrollWidth 1024 px
+После OK: scrollWidth 1024 px
+
+M23 layout / stand / viewport / light / 1440 px
+Ожидание: Ширина документа совпадает с viewport
+До OK: scrollWidth 1440 px
+После OK: scrollWidth 1440 px
+
+M24 layout / stand / viewport / dark / 1440 px
+Ожидание: Ширина документа совпадает с viewport
+До OK: scrollWidth 1440 px
+После OK: scrollWidth 1440 px
+
+M25 layout / stand / viewport / light / 1920 px
+Ожидание: Ширина документа совпадает с viewport
+До OK: scrollWidth 1920 px
+После OK: scrollWidth 1920 px
+
+M26 layout / stand / viewport / dark / 1920 px
+Ожидание: Ширина документа совпадает с viewport
+До OK: scrollWidth 1920 px
+После OK: scrollWidth 1920 px
+
+M27 button / primary / theme-change / dark / 1920 px
+Ожидание: Фон берётся из тёмного акцента, aria-pressed=true
+До FAIL: Фон #2939a8, aria-pressed true
+После OK: Фон #90a6ff, aria-pressed true
+
+M28 button / secondary / ghost / default / dark / 1024 px
+Ожидание: Secondary с читаемой границей, ghost прозрачна
+До FAIL: Фон secondary #2939a8, ghost rgb(41, 57, 168), граница #3d4b66
+После OK: Фон secondary #18243d, ghost rgba(0, 0, 0, 0), граница #8294b6
+
+M29 button / primary / active / light / 1440 px
+Ожидание: Нажатие использует отдельный active-токен
+До FAIL: Фон при нажатии #2939a8
+После OK: Фон при нажатии #1d3695
+
+M30 button / sm / md / lg / sizes / light / 768 px
+Ожидание: Три возрастающие высоты и разные отступы
+До FAIL: 35/10.4, 44/10.4, 52/10.4 px (высота/отступ)
+После OK: 34/12, 44/20, 53/22.4 px (высота/отступ)
+
+M31 field / name / invalid-submit / light / 768 px
+Ожидание: Enter отмечает пустые поля и фокусирует имя
+До FAIL: Фокус BUTTON, aria-invalid true/true
+После OK: Фокус user-name, aria-invalid true/true
+
+M32 field / email / valid-after-edit / dark / 1024 px
+Ожидание: После исправления ошибки убраны, обе подсказки сохранены, submit успешен
+До FAIL: aria-invalid false, имя описано false, Данные прошли проверку.
+После OK: aria-invalid false, имя описано true, Данные прошли проверку.
+
+M33 field / team / disabled / light / 1440 px
+Ожидание: Нативное disabled поле пропускается при Tab
+До FAIL: Образец отсутствует
+После OK: disabled true, фокус BUTTON
+
+M34 card / standard / unbroken-text / light / 320 px
+Ожидание: Строки 200 и 100 символов остаются внутри карточки
+До FAIL: Карточка 2081/350, кнопка 1281/1281 px
+После OK: Карточка 262/262, кнопка 224/224 px
+
+M35 card / nested / nested-card / dark / 375 px
+Ожидание: Внутренняя карточка и её alert сохраняют собственный размер текста
+До FAIL: Вложенная карточка помещается false, текст alert 11.04px
+После OK: Вложенная карточка помещается true, текст alert 13.28px
+
+M36 card / featured / container-narrow / light / 1440 px
+Ожидание: Кнопка заполняет карточку при сужении её контейнера
+До FAIL: Контейнер/кнопка 351/92 px, соседняя кнопка 142 → 142 px
+После OK: Контейнер/кнопка 353/353 px, соседняя кнопка 142 → 142 px
+
+M37 card / standard / container-wide / dark / 1920 px
+Ожидание: Кнопка широкой карточки сохраняет ширину auto
+До FAIL: Контейнер/кнопка 399/110 px
+После OK: Контейнер/кнопка 401/113 px
+
+M38 card / nested / danger-tag-isolation / dark / 375 px
+Ожидание: Danger-метка сохраняет собственный цвет и базовый отступ
+До FAIL: Фон #c12236, отступ 16 px
+После OK: Фон #572635, отступ 10.4 px
+
+M39 tag / all / contrast / light / 1440 px
+Ожидание: Четыре роли с контрастом текста ≥ 4,5
+До OK: neutral 5.69, success 5.00, warning 6.14, danger 5.92
+После OK: neutral 5.69, success 5.00, warning 6.14, danger 5.46
+
+M40 alert / all / contrast / light / 1440 px
+Ожидание: Четыре роли с контрастом текста ≥ 4,5
+До OK: info 16.24, success 16.25, warning 16.35, danger 5.92
+После OK: info 6.11, success 5.00, warning 6.14, danger 5.46
+
+M41 tag / all / contrast / dark / 375 px
+Ожидание: Четыре роли с контрастом текста ≥ 4,5
+До OK: neutral 8.02, success 7.46, warning 7.44, danger 5.92
+После OK: neutral 8.02, success 7.46, warning 7.44, danger 6.15
+
+M42 alert / all / contrast / dark / 375 px
+Ожидание: Четыре роли с контрастом текста ≥ 4,5
+До FAIL: info 1.57, success 1.62, warning 1.87, danger 5.92
+После OK: info 7.49, success 7.46, warning 7.44, danger 6.15
+
+M43 alert / info / dismiss / restore / light / 1024 px
+Ожидание: Закрытие убирает один элемент, восстановление возвращает четыре
+До OK: 3 → 4
+После OK: 3 → 4
+
+M44 alert / info / focus-visible / close / dark / 768 px
+Ожидание: Enter закрывает уведомление и переводит фокус на следующее
+До FAIL: Контур solid, фокус BODY
+После OK: Контур solid, фокус Закрыть уведомление «Успешно»
+
+M45 switch / on / focus-visible / toggle-off / dark / 1024 px
+Ожидание: Видимый фокус на треке, Space выключает активный checkbox
+До FAIL: Контур none, checked true
+После OK: Контур solid, checked false
+
+M46 dialog / save / keyboard / secondary-trigger / light / 320 px
+Ожидание: Tab и Shift+Tab сохраняют фокус в диалоге, Enter закрывает и возвращает фокус
+До FAIL: Shift+Tab BUTTON, Tab Закрыть окно, фокус вернулся true
+После OK: Shift+Tab Закрыть окно, Tab dialog-team, фокус вернулся true
+
+M47 vendor / legacy-action / isolation / click / dark / 1440 px
+Ожидание: Кнопка vendor открывает детали и сохраняет собственный радиус
+До FAIL: Радиусы vendor/Atlas 0px/0px, детали открылись false
+После OK: Радиусы vendor/Atlas 0px/12px, детали открылись true
+
+M48 button / primary / reduced-motion / light / 1440 px
+Ожидание: Нет смещения при hover, переход и плавная прокрутка отключены
+До FAIL: matrix(1, 0, 0, 1, 0, -1), 0.16s, 0.16s, 0.16s, scroll smooth
+После OK: matrix(1, 0, 0, 1, 0, 0), 0s, 0s, scroll auto

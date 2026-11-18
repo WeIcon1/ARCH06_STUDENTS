@@ -1,0 +1,861 @@
+
+> atlas-ui-css-architecture-rescue@0.6.0 test
+> node --test tests/architecture.test.mjs
+
+✔ 01 — порядок слоёв объявлен явно (0.9296ms)
+✖ 02 — унаследованные стили импортированы в legacy-слой (0.7078ms)
+✖ 03 — архитектура не использует !important (0.3195ms)
+✖ 04 — модальное окно открывается через showModal() (0.4511ms)
+✖ 05 — состояния focus-visible описаны для кнопки и переключателя (0.3503ms)
+✖ 06 — переключатель не скрыт через display:none (0.8404ms)
+✖ 07 — визуальные стили компонентов зависят от токенов, не от жёстких hex (0.2172ms)
+✖ 08 — глобальный .is-danger не должен перезаписывать разные компоненты (0.1722ms)
+✖ 09 — ошибки поля показываются по aria-invalid, не сразу по :invalid (0.1573ms)
+✖ 10 — компонентные CSS не содержат фиксированных мобильных min-width (0.2448ms)
+✖ 11 — кнопка имеет один базовый блок .ui-button (0.1681ms)
+✖ 12 — предусмотрен режим reduced motion (0.4612ms)
+✖ 13 — отсутствует опасный :is со смешанным ID и классом (0.2281ms)
+✔ 14 — нативные disabled атрибуты присутствуют (0.1065ms)
+✔ 15 — все семь семейств представлены на стенде (0.1202ms)
+✔ 16 — диалог имеет доступное имя (0.0748ms)
+✖ 17 — модификаторы риска не зависят от служебного .is-danger (0.2782ms)
+✖ 18 — провайдерские селекторы не нацелены на библиотеку и глобальные html-элементы (0.1678ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 4
+ℹ fail 14
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 88.3993
+
+✖ failing tests:
+
+test at tests\architecture.test.mjs:15:1
+✖ 02 — унаследованные стили импортированы в legacy-слой (0.7078ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /@import\s+url\(['"]\.\/legacy\.css['"]\)\s+layer\(legacy\)/. Input:
+  
+  '/* ARCHITECTURE ENTRY POINT. CAUTION: an intentionally unsafe import exists below. */\n' +
+    '@layer reset, legacy, tokens, base, components, states, utilities;\n' +
+    "@import url('./legacy.css'); /* TODO: investigate unlayered precedence */\n" +
+    "@import url('./tokens.css') layer(tokens);\n" +
+    "@import url('./base.css') layer(base);\n" +
+    "@import url('./components.css') layer(components);\n" +
+    "@import url('./states.css') layer(states);\n" +
+    "@import url('./utilities.css') layer(utilities);\n"
+  
+      at TestContext.<anonymous> (file:///C:/Users/user/Documents/WebDevelopment/For_V_Practice_6/ARCH06_STUDENTS/project/tests/architecture.test.mjs:16:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: "/* ARCHITECTURE ENTRY POINT. CAUTION: an intentionally unsafe import exists below. */\n@layer reset, legacy, tokens, base, components, states, utilities;\n@import url('./legacy.css'); /* TODO: investigate unlayered precedence */\n@import url('./tokens.css') layer(tokens);\n@import url('./base.css') layer(base);\n@import url('./components.css') layer(components);\n@import url('./states.css') layer(states);\n@import url('./utilities.css') layer(utilities);\n",
+    expected: /@import\s+url\(['"]\.\/legacy\.css['"]\)\s+layer\(legacy\)/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\architecture.test.mjs:18:1
+✖ 03 — архитектура не использует !important (0.3195ms)
+  AssertionError [ERR_ASSERTION]: Найдены !important в одном из CSS-файлов
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/user/Documents/WebDevelopment/For_V_Practice_6/ARCH06_STUDENTS/project/tests/architecture.test.mjs:19:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\architecture.test.mjs:21:1
+✖ 04 — модальное окно открывается через showModal() (0.4511ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /\.showModal\s*\(/. Input:
+  
+  'const root = document.documentElement;\n' +
+    "const themeToggle = document.querySelector('#theme-toggle');\n" +
+    "const dialog = document.querySelector('#settings-dialog');\n" +
+    '\n' +
+    'function toggleTheme() {\n' +
+    "  const next = root.dataset.theme === 'dark' ? 'light' : 'dark';\n" +
+    '  root.dataset.theme = next;\n' +
+    "  themeToggle.setAttribute('aria-pressed', String(next === 'dark'));\n" +
+    "  themeToggle.textContent = next === 'dark' ? '☀️ Светлая тема' : '🌙 Сменить тему';\n" +
+    '}\n' +
+    "themeToggle.addEventListener('click', toggleTheme);\n" +
+    '\n' +
+    '// INCIDENT D08: the window is opened, but not in a modal state.\n' +
+    "for (const trigger of document.querySelectorAll('#open-dialog, [data-open-dialog]')) {\n" +
+    "  trigger.addEventListener('click', () => dialog.show());\n" +
+    '}\n' +
+    '\n' +
+    "const form = document.querySelector('#demo-form');\n" +
+    "for (const input of form.querySelectorAll('input[required]')) {\n" +
+    "  input.addEventListener('blur', () => input.setAttribute('aria-invalid', String(!input.checkValidity())));\n" +
+    "  input.addEventListener('input', () => {\n" +
+    "    if (input.hasAttribute('aria-invalid')) input.setAttribute('aria-invalid', String(!input.checkValidity()));\n" +
+    '  });\n' +
+    '}\n' +
+    "form.addEventListener('submit', (event) => {\n" +
+    '  event.preventDefault();\n' +
+    '  let hasErrors = false;\n' +
+    "  for (const input of form.querySelectorAll('input[required]')) {\n" +
+    '    const invalid = !input.checkValidity();\n' +
+    "    input.setAttribute('aria-invalid', String(invalid));\n" +
+    '    if (invalid) hasErrors = true;\n' +
+    '  }\n' +
+    "  document.querySelector('#form-feedback').textContent = hasErrors ? 'Исправьте поля формы.' : 'Данные прошли проверку.';\n" +
+    '});\n' +
+    '\n' +
+    "const alerts = document.querySelector('.alerts-stack');\n" +
+    'const initialAlerts = alerts.innerHTML;\n' +
+    "alerts.addEventListener('click', (event) => {\n" +
+    "  const dismiss = event.target.closest('.ui-alert__dismiss');\n" +
+    "  if (dismiss) dismiss.closest('.ui-alert')?.remove();\n" +
+    '});\n' +
+    "document.querySelector('#restore-alerts').addEventListener('click', () => { alerts.innerHTML = initialAlerts; });\n" +
+    "for (const input of document.querySelectorAll('.ui-switch input')) {\n" +
+    "  input.addEventListener('change', () => {\n" +
+    "    document.querySelector('#switch-feedback').textContent = `${input.closest('.ui-switch').querySelector('strong').textContent}: ${input.checked ? 'включено' : 'выключено'}`;\n" +
+    '  });\n' +
+    '}\n'
+  
+      at TestContext.<anonymous> (file:///C:/Users/user/Documents/WebDevelopment/For_V_Practice_6/ARCH06_STUDENTS/project/tests/architecture.test.mjs:22:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: "const root = document.documentElement;\nconst themeToggle = document.querySelector('#theme-toggle');\nconst dialog = document.querySelector('#settings-dialog');\n\nfunction toggleTheme() {\n  const next = root.dataset.theme === 'dark' ? 'light' : 'dark';\n  root.dataset.theme = next;\n  themeToggle.setAttribute('aria-pressed', String(next === 'dark'));\n  themeToggle.textContent = next === 'dark' ? '☀️ Светлая тема' : '🌙 Сменить тему';\n}\nthemeToggle.addEventListener('click', toggleTheme);\n\n// INCIDENT D08: the window is opened, but not in a modal state.\nfor (const trigger of document.querySelectorAll('#open-dialog, [data-open-dialog]')) {\n  trigger.addEventListener('click', () => dialog.show());\n}\n\nconst form = document.querySelector('#demo-form');\nfor (const input of form.querySelectorAll('input[required]')) {\n  input.addEventListener('blur', () => input.setAttribute('aria-invalid', String(!input.checkValidity())));\n  input.addEventListener('input', () => {\n    if (input.hasAttribute('aria-invalid')) input.setAttribute('aria-invalid', String(!input.checkValidity()));\n  });\n}\nform.addEventListener('submit', (event) => {\n  event.preventDefault();\n  let hasErrors = false;\n  for (const input of form.querySelectorAll('input[required]')) {\n    const invalid = !input.checkValidity();\n    input.setAttribute('aria-invalid', String(invalid));\n    if (invalid) hasErrors = true;\n  }\n  document.querySelector('#form-feedback').textContent = hasErrors ? 'Исправьте поля формы.' : 'Данные прошли проверку.';\n});\n\nconst alerts = document.querySelector('.alerts-stack');\nconst initialAlerts = alerts.innerHTML;\nalerts.addEventListener('click', (event) => {\n  const dismiss = event.target.closest('.ui-alert__dismiss');\n  if (dismiss) dismiss.closest('.ui-alert')?.remove();\n});\ndocument.querySelector('#restore-alerts').addEventListener('click', () => { alerts.innerHTML = initialAlerts; });\nfor (const input of document.querySelectorAll('.ui-switch input')) {\n  input.addEventListener('change', () => {\n    document.querySelector('#switch-feedback').textContent = `${input.closest('.ui-switch').querySelector('strong').textContent}: ${input.checked ? 'включено' : 'выключено'}`;\n  });\n}\n",
+    expected: /\.showModal\s*\(/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\architecture.test.mjs:25:1
+✖ 05 — состояния focus-visible описаны для кнопки и переключателя (0.3503ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /\.ui-button:focus-visible\b/. Input:
+  
+  '/* INTERACTION STATES: intentionally incomplete and in conflict with base. */\n' +
+    '.ui-button:hover { transform: translateY(-1px); }\n' +
+    '.ui-button--primary:hover { background: var(--color-accent-hover); }\n' +
+    '.ui-button--secondary:hover, .ui-button--ghost:hover { background: var(--color-surface-alt); }\n' +
+    '.ui-button--danger:hover { background: #971d2a; }\n' +
+    '.ui-button:focus { outline: none; } /* BUG: removes visible keyboard focus */\n' +
+    '.ui-button:active { transform: translateY(0); }\n' +
+    '.ui-button:disabled { opacity: .45; pointer-events: none; }\n' +
+    '.ui-field:has(input:invalid) input { border-color: #b42336; background: #fff0f2; } /* BUG: premature invalid state */\n' +
+    '.ui-field:has(input:invalid) .ui-field__hint { color: #b42336; }\n' +
+    '.is-danger { background: #c12236; color: #ffffff; } /* BUG: global class conflicts with tags and alerts */\n' +
+    ':is(.ui-card, #workbench) .ui-tag { padding-inline: 1rem; } /* BUG: :is() inherits high specificity from ID */\n' +
+    '.ui-tag:hover { filter: brightness(.94); cursor: pointer; } /* BUG: tag has no action */\n' +
+    '.ui-alert { transition: background-color 240ms, color 240ms; }\n' +
+    '\n' +
+    '/* BASE COMPONENT STYLES. Some inconsistencies are intentional. */\n' +
+    '.ui-button { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-height: var(--control-height); padding: .65rem 1.1rem; border: 1px solid transparent; text-decoration: none; font-weight: 700; font-size: .86rem; border-radius: var(--radius-md); transition: background-color var(--motion-fast), transform var(--motion-fast), box-shadow var(--motion-fast); }\n' +
+    '.ui-button { letter-spacing: .005em; padding-inline: 1.25rem; } /* DUPLICATED RULE: audit this. */\n' +
+    '.ui-button--primary { background: #3659d9; color: #ffffff; }\n' +
+    '.ui-button--secondary { background: var(--color-surface); color: var(--color-ink); border-color: var(--color-border); }\n' +
+    '.ui-button--ghost { background: transparent; color: var(--color-ink); }\n' +
+    '.ui-button--danger { background: #b42336; color: #fff; }\n' +
+    '.ui-button--sm { min-height: 2.15rem; padding: .4rem .75rem; font-size: .78rem; }\n' +
+    '.ui-button--lg { min-height: 3.25rem; padding: .85rem 1.4rem; font-size: 1rem; }\n' +
+    '.ui-field { display: flex; flex-direction: column; gap: .4rem; }\n' +
+    '.ui-field label { font-weight: 650; font-size: .88rem; }\n' +
+    '.ui-field input, .ui-field textarea { width: 100%; min-width: 20rem; padding: .7rem .8rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-ink); }\n' +
+    '.ui-field__hint { font-size: .75rem; color: var(--color-muted); }\n' +
+    '.ui-field__actions { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }\n' +
+    '.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n' +
+    '.ui-field--full, .ui-field__actions { grid-column: 1 / -1; }\n' +
+    '.ui-card { display: flex; flex-direction: column; min-width: 22rem; padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface); box-shadow: var(--shadow-card); }\n' +
+    '.ui-card--featured { border-color: var(--color-accent); }\n' +
+    '.ui-card__meta { display: flex; justify-content: space-between; align-items: center; gap: .6rem; margin-bottom: .9rem; color: var(--color-muted); font-size: .7rem; }\n' +
+    '.ui-card h3 { font-size: 1rem; line-height: 1.35; overflow-wrap: anywhere; }\n' +
+    '.ui-card p { color: var(--color-muted); font-size: .82rem; }\n' +
+    '.ui-card > .ui-button { align-self: flex-start; margin-top: auto; }\n' +
+    '.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n' +
+    '.ui-tag { display: inline-flex; align-items: center; min-height: 1.6rem; border-radius: 50px; font-size: .69rem; line-height: 1.2; font-weight: 750; padding: .25rem .65rem; white-space: nowrap; }\n' +
+    '.ui-tag--neutral { background: var(--color-surface-alt); border: 1px solid var(--color-border); color: var(--color-muted); }\n' +
+    '.ui-tag--success { background: var(--color-success-bg); color: var(--color-success); }\n' +
+    '.ui-tag--warning { background: var(--color-warning-bg); color: var(--color-warning); }\n' +
+    '.ui-tag--danger { background: var(--color-danger-bg); color: var(--color-danger); }\n' +
+    '.ui-alert { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem; border-radius: var(--radius-md); border: 1px solid; color: #111827; }\n' +
+    '.ui-alert strong { font-size: .9rem; }\n' +
+    '.ui-alert p { margin: .25rem 0 0; font-size: .83rem; }\n' +
+    '.ui-alert--info { background: var(--color-info-bg); border-color: var(--color-info); }\n' +
+    '.ui-alert--success { background: var(--color-success-bg); border-color: var(--color-success); }\n' +
+    '.ui-alert--warning { background: var(--color-warning-bg); border-color: var(--color-warning); }\n' +
+    '.ui-alert--danger { background: var(--color-danger-bg); border-color: var(--color-danger); }\n' +
+    '.alerts-stack { display: grid; gap: .7rem; margin-bottom: 1.1rem; }\n' +
+    '.ui-alert__dismiss { align-self: start; border: 0; background: transparent; color: inherit; font-size: 1.4rem; line-height: 1; padding: .2rem; }\n' +
+    '.settings-list { display: grid; border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }\n' +
+    '.ui-switch { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem; cursor: pointer; }\n' +
+    '.ui-switch + .ui-switch { border-top: 1px solid var(--color-border); }\n' +
+    '.ui-switch__copy { display: grid; gap: .15rem; }\n' +
+    '.ui-switch__copy strong { font-size: .88rem; }\n' +
+    '.ui-switch__copy small { color: var(--color-muted); }\n' +
+    '.ui-switch input { display: none; } /* BUG: invisible for keyboard and accessibility tree */\n' +
+    '.ui-switch__track { flex: 0 0 2.6rem; width: 2.6rem; height: 1.5rem; background: #adb7c6; border-radius: 2rem; padding: .2rem; transition: background-color var(--motion-fast); }\n' +
+    '.ui-switch__thumb { display: block; width: 1.1rem; height: 1.1rem; background: white; border-radius: 50%; transition: transform var(--motion-fast); }\n' +
+    '.ui-switch input:checked + .ui-switch__track { background: var(--color-accent); }\n' +
+    '.ui-switch input:checked + .ui-switch__track .ui-switch__thumb { transform: translateX(1.1rem); }\n' +
+    '.ui-switch input:disabled + .ui-switch__track { opacity: .4; }\n' +
+    '.ui-dialog { width: min(92vw, 30rem); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.6rem; background: var(--color-surface); color: var(--color-ink); box-shadow: 0 24px 90px rgba(8, 15, 45, .28); }\n' +
+    '.ui-dialog::backdrop { background: rgba(10, 17, 40, .65); backdrop-filter: blur(3px); }\n' +
+    '.ui-dialog__head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }\n' +
+    '.ui-dialog h2 { margin: .8rem 0 .5rem; }\n' +
+    '.ui-dialog p { color: var(--color-muted); }\n' +
+    '.ui-dialog__actions { display: flex; justify-content: flex-end; gap: .5rem; margin-top: 1.6rem; }\n' +
+    '@media (max-width: 720px) { .card-grid, .form-grid { grid-template-columns: 1fr; } }\n'
+  
+      at TestContext.<anonymous> (file:///C:/Users/user/Documents/WebDevelopment/For_V_Practice_6/ARCH06_STUDENTS/project/tests/architecture.test.mjs:26:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '/* INTERACTION STATES: intentionally incomplete and in conflict with base. */\n.ui-button:hover { transform: translateY(-1px); }\n.ui-button--primary:hover { background: var(--color-accent-hover); }\n.ui-button--secondary:hover, .ui-button--ghost:hover { background: var(--color-surface-alt); }\n.ui-button--danger:hover { background: #971d2a; }\n.ui-button:focus { outline: none; } /* BUG: removes visible keyboard focus */\n.ui-button:active { transform: translateY(0); }\n.ui-button:disabled { opacity: .45; pointer-events: none; }\n.ui-field:has(input:invalid) input { border-color: #b42336; background: #fff0f2; } /* BUG: premature invalid state */\n.ui-field:has(input:invalid) .ui-field__hint { color: #b42336; }\n.is-danger { background: #c12236; color: #ffffff; } /* BUG: global class conflicts with tags and alerts */\n:is(.ui-card, #workbench) .ui-tag { padding-inline: 1rem; } /* BUG: :is() inherits high specificity from ID */\n.ui-tag:hover { filter: brightness(.94); cursor: pointer; } /* BUG: tag has no action */\n.ui-alert { transition: background-color 240ms, color 240ms; }\n\n/* BASE COMPONENT STYLES. Some inconsistencies are intentional. */\n.ui-button { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-height: var(--control-height); padding: .65rem 1.1rem; border: 1px solid transparent; text-decoration: none; font-weight: 700; font-size: .86rem; border-radius: var(--radius-md); transition: background-color var(--motion-fast), transform var(--motion-fast), box-shadow var(--motion-fast); }\n.ui-button { letter-spacing: .005em; padding-inline: 1.25rem; } /* DUPLICATED RULE: audit this. */\n.ui-button--primary { background: #3659d9; color: #ffffff; }\n.ui-button--secondary { background: var(--color-surface); color: var(--color-ink); border-color: var(--color-border); }\n.ui-button--ghost { background: transparent; color: var(--color-ink); }\n.ui-button--danger { background: #b42336; color: #fff; }\n.ui-button--sm { min-height: 2.15rem; padding: .4rem .75rem; font-size: .78rem; }\n.ui-button--lg { min-height: 3.25rem; padding: .85rem 1.4rem; font-size: 1rem; }\n.ui-field { display: flex; flex-direction: column; gap: .4rem; }\n.ui-field label { font-weight: 650; font-size: .88rem; }\n.ui-field input, .ui-field textarea { width: 100%; min-width: 20rem; padding: .7rem .8rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-ink); }\n.ui-field__hint { font-size: .75rem; color: var(--color-muted); }\n.ui-field__actions { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }\n.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n.ui-field--full, .ui-field__actions { grid-column: 1 / -1; }\n.ui-card { display: flex; flex-direction: column; min-width: 22rem; padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface); box-shadow: var(--shadow-card); }\n.ui-card--featured { border-color: var(--color-accent); }\n.ui-card__meta { display: flex; justify-content: space-between; align-items: center; gap: .6rem; margin-bottom: .9rem; color: var(--color-muted); font-size: .7rem; }\n.ui-card h3 { font-size: 1rem; line-height: 1.35; overflow-wrap: anywhere; }\n.ui-card p { color: var(--color-muted); font-size: .82rem; }\n.ui-card > .ui-button { align-self: flex-start; margin-top: auto; }\n.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n.ui-tag { display: inline-flex; align-items: center; min-height: 1.6rem; border-radius: 50px; font-size: .69rem; line-height: 1.2; font-weight: 750; padding: .25rem .65rem; white-space: nowrap; }\n.ui-tag--neutral { background: var(--color-surface-alt); border: 1px solid var(--color-border); color: var(--color-muted); }\n.ui-tag--success { background: var(--color-success-bg); color: var(--color-success); }\n.ui-tag--warning { background: var(--color-warning-bg); color: var(--color-warning); }\n.ui-tag--danger { background: var(--color-danger-bg); color: var(--color-danger); }\n.ui-alert { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem; border-radius: var(--radius-md); border: 1px solid; color: #111827; }\n.ui-alert strong { font-size: .9rem; }\n.ui-alert p { margin: .25rem 0 0; font-size: .83rem; }\n.ui-alert--info { background: var(--color-info-bg); border-color: var(--color-info); }\n.ui-alert--success { background: var(--color-success-bg); border-color: var(--color-success); }\n.ui-alert--warning { background: var(--color-warning-bg); border-color: var(--color-warning); }\n.ui-alert--danger { background: var(--color-danger-bg); border-color: var(--color-danger); }\n.alerts-stack { display: grid; gap: .7rem; margin-bottom: 1.1rem; }\n.ui-alert__dismiss { align-self: start; border: 0; background: transparent; color: inherit; font-size: 1.4rem; line-height: 1; padding: .2rem; }\n.settings-list { display: grid; border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }\n.ui-switch { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem; cursor: pointer; }\n.ui-switch + .ui-switch { border-top: 1px solid var(--color-border); }\n.ui-switch__copy { display: grid; gap: .15rem; }\n.ui-switch__copy strong { font-size: .88rem; }\n.ui-switch__copy small { color: var(--color-muted); }\n.ui-switch input { display: none; } /* BUG: invisible for keyboard and accessibility tree */\n.ui-switch__track { flex: 0 0 2.6rem; width: 2.6rem; height: 1.5rem; background: #adb7c6; border-radius: 2rem; padding: .2rem; transition: background-color var(--motion-fast); }\n.ui-switch__thumb { display: block; width: 1.1rem; height: 1.1rem; background: white; border-radius: 50%; transition: transform var(--motion-fast); }\n.ui-switch input:checked + .ui-switch__track { background: var(--color-accent); }\n.ui-switch input:checked + .ui-switch__track .ui-switch__thumb { transform: translateX(1.1rem); }\n.ui-switch input:disabled + .ui-switch__track { opacity: .4; }\n.ui-dialog { width: min(92vw, 30rem); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.6rem; background: var(--color-surface); color: var(--color-ink); box-shadow: 0 24px 90px rgba(8, 15, 45, .28); }\n.ui-dialog::backdrop { background: rgba(10, 17, 40, .65); backdrop-filter: blur(3px); }\n.ui-dialog__head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }\n.ui-dialog h2 { margin: .8rem 0 .5rem; }\n.ui-dialog p { color: var(--color-muted); }\n.ui-dialog__actions { display: flex; justify-content: flex-end; gap: .5rem; margin-top: 1.6rem; }\n@media (max-width: 720px) { .card-grid, .form-grid { grid-template-columns: 1fr; } }\n',
+    expected: /\.ui-button:focus-visible\b/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\architecture.test.mjs:29:1
+✖ 06 — переключатель не скрыт через display:none (0.8404ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /\.ui-switch\s+input\s*\{[^}]*display\s*:\s*none/is. Input:
+  
+  '/* BASE COMPONENT STYLES. Some inconsistencies are intentional. */\n' +
+    '.ui-button { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-height: var(--control-height); padding: .65rem 1.1rem; border: 1px solid transparent; text-decoration: none; font-weight: 700; font-size: .86rem; border-radius: var(--radius-md); transition: background-color var(--motion-fast), transform var(--motion-fast), box-shadow var(--motion-fast); }\n' +
+    '.ui-button { letter-spacing: .005em; padding-inline: 1.25rem; } /* DUPLICATED RULE: audit this. */\n' +
+    '.ui-button--primary { background: #3659d9; color: #ffffff; }\n' +
+    '.ui-button--secondary { background: var(--color-surface); color: var(--color-ink); border-color: var(--color-border); }\n' +
+    '.ui-button--ghost { background: transparent; color: var(--color-ink); }\n' +
+    '.ui-button--danger { background: #b42336; color: #fff; }\n' +
+    '.ui-button--sm { min-height: 2.15rem; padding: .4rem .75rem; font-size: .78rem; }\n' +
+    '.ui-button--lg { min-height: 3.25rem; padding: .85rem 1.4rem; font-size: 1rem; }\n' +
+    '.ui-field { display: flex; flex-direction: column; gap: .4rem; }\n' +
+    '.ui-field label { font-weight: 650; font-size: .88rem; }\n' +
+    '.ui-field input, .ui-field textarea { width: 100%; min-width: 20rem; padding: .7rem .8rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-ink); }\n' +
+    '.ui-field__hint { font-size: .75rem; color: var(--color-muted); }\n' +
+    '.ui-field__actions { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }\n' +
+    '.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n' +
+    '.ui-field--full, .ui-field__actions { grid-column: 1 / -1; }\n' +
+    '.ui-card { display: flex; flex-direction: column; min-width: 22rem; padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface); box-shadow: var(--shadow-card); }\n' +
+    '.ui-card--featured { border-color: var(--color-accent); }\n' +
+    '.ui-card__meta { display: flex; justify-content: space-between; align-items: center; gap: .6rem; margin-bottom: .9rem; color: var(--color-muted); font-size: .7rem; }\n' +
+    '.ui-card h3 { font-size: 1rem; line-height: 1.35; overflow-wrap: anywhere; }\n' +
+    '.ui-card p { color: var(--color-muted); font-size: .82rem; }\n' +
+    '.ui-card > .ui-button { align-self: flex-start; margin-top: auto; }\n' +
+    '.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n' +
+    '.ui-tag { display: inline-flex; align-items: center; min-height: 1.6rem; border-radius: 50px; font-size: .69rem; line-height: 1.2; font-weight: 750; padding: .25rem .65rem; white-space: nowrap; }\n' +
+    '.ui-tag--neutral { background: var(--color-surface-alt); border: 1px solid var(--color-border); color: var(--color-muted); }\n' +
+    '.ui-tag--success { background: var(--color-success-bg); color: var(--color-success); }\n' +
+    '.ui-tag--warning { background: var(--color-warning-bg); color: var(--color-warning); }\n' +
+    '.ui-tag--danger { background: var(--color-danger-bg); color: var(--color-danger); }\n' +
+    '.ui-alert { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem; border-radius: var(--radius-md); border: 1px solid; color: #111827; }\n' +
+    '.ui-alert strong { font-size: .9rem; }\n' +
+    '.ui-alert p { margin: .25rem 0 0; font-size: .83rem; }\n' +
+    '.ui-alert--info { background: var(--color-info-bg); border-color: var(--color-info); }\n' +
+    '.ui-alert--success { background: var(--color-success-bg); border-color: var(--color-success); }\n' +
+    '.ui-alert--warning { background: var(--color-warning-bg); border-color: var(--color-warning); }\n' +
+    '.ui-alert--danger { background: var(--color-danger-bg); border-color: var(--color-danger); }\n' +
+    '.alerts-stack { display: grid; gap: .7rem; margin-bottom: 1.1rem; }\n' +
+    '.ui-alert__dismiss { align-self: start; border: 0; background: transparent; color: inherit; font-size: 1.4rem; line-height: 1; padding: .2rem; }\n' +
+    '.settings-list { display: grid; border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }\n' +
+    '.ui-switch { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem; cursor: pointer; }\n' +
+    '.ui-switch + .ui-switch { border-top: 1px solid var(--color-border); }\n' +
+    '.ui-switch__copy { display: grid; gap: .15rem; }\n' +
+    '.ui-switch__copy strong { font-size: .88rem; }\n' +
+    '.ui-switch__copy small { color: var(--color-muted); }\n' +
+    '.ui-switch input { display: none; } /* BUG: invisible for keyboard and accessibility tree */\n' +
+    '.ui-switch__track { flex: 0 0 2.6rem; width: 2.6rem; height: 1.5rem; background: #adb7c6; border-radius: 2rem; padding: .2rem; transition: background-color var(--motion-fast); }\n' +
+    '.ui-switch__thumb { display: block; width: 1.1rem; height: 1.1rem; background: white; border-radius: 50%; transition: transform var(--motion-fast); }\n' +
+    '.ui-switch input:checked + .ui-switch__track { background: var(--color-accent); }\n' +
+    '.ui-switch input:checked + .ui-switch__track .ui-switch__thumb { transform: translateX(1.1rem); }\n' +
+    '.ui-switch input:disabled + .ui-switch__track { opacity: .4; }\n' +
+    '.ui-dialog { width: min(92vw, 30rem); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.6rem; background: var(--color-surface); color: var(--color-ink); box-shadow: 0 24px 90px rgba(8, 15, 45, .28); }\n' +
+    '.ui-dialog::backdrop { background: rgba(10, 17, 40, .65); backdrop-filter: blur(3px); }\n' +
+    '.ui-dialog__head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }\n' +
+    '.ui-dialog h2 { margin: .8rem 0 .5rem; }\n' +
+    '.ui-dialog p { color: var(--color-muted); }\n' +
+    '.ui-dialog__actions { display: flex; justify-content: flex-end; gap: .5rem; margin-top: 1.6rem; }\n' +
+    '@media (max-width: 720px) { .card-grid, .form-grid { grid-template-columns: 1fr; } }\n'
+  
+      at TestContext.<anonymous> (file:///C:/Users/user/Documents/WebDevelopment/For_V_Practice_6/ARCH06_STUDENTS/project/tests/architecture.test.mjs:30:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '/* BASE COMPONENT STYLES. Some inconsistencies are intentional. */\n.ui-button { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-height: var(--control-height); padding: .65rem 1.1rem; border: 1px solid transparent; text-decoration: none; font-weight: 700; font-size: .86rem; border-radius: var(--radius-md); transition: background-color var(--motion-fast), transform var(--motion-fast), box-shadow var(--motion-fast); }\n.ui-button { letter-spacing: .005em; padding-inline: 1.25rem; } /* DUPLICATED RULE: audit this. */\n.ui-button--primary { background: #3659d9; color: #ffffff; }\n.ui-button--secondary { background: var(--color-surface); color: var(--color-ink); border-color: var(--color-border); }\n.ui-button--ghost { background: transparent; color: var(--color-ink); }\n.ui-button--danger { background: #b42336; color: #fff; }\n.ui-button--sm { min-height: 2.15rem; padding: .4rem .75rem; font-size: .78rem; }\n.ui-button--lg { min-height: 3.25rem; padding: .85rem 1.4rem; font-size: 1rem; }\n.ui-field { display: flex; flex-direction: column; gap: .4rem; }\n.ui-field label { font-weight: 650; font-size: .88rem; }\n.ui-field input, .ui-field textarea { width: 100%; min-width: 20rem; padding: .7rem .8rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-ink); }\n.ui-field__hint { font-size: .75rem; color: var(--color-muted); }\n.ui-field__actions { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }\n.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n.ui-field--full, .ui-field__actions { grid-column: 1 / -1; }\n.ui-card { display: flex; flex-direction: column; min-width: 22rem; padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface); box-shadow: var(--shadow-card); }\n.ui-card--featured { border-color: var(--color-accent); }\n.ui-card__meta { display: flex; justify-content: space-between; align-items: center; gap: .6rem; margin-bottom: .9rem; color: var(--color-muted); font-size: .7rem; }\n.ui-card h3 { font-size: 1rem; line-height: 1.35; overflow-wrap: anywhere; }\n.ui-card p { color: var(--color-muted); font-size: .82rem; }\n.ui-card > .ui-button { align-self: flex-start; margin-top: auto; }\n.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n.ui-tag { display: inline-flex; align-items: center; min-height: 1.6rem; border-radius: 50px; font-size: .69rem; line-height: 1.2; font-weight: 750; padding: .25rem .65rem; white-space: nowrap; }\n.ui-tag--neutral { background: var(--color-surface-alt); border: 1px solid var(--color-border); color: var(--color-muted); }\n.ui-tag--success { background: var(--color-success-bg); color: var(--color-success); }\n.ui-tag--warning { background: var(--color-warning-bg); color: var(--color-warning); }\n.ui-tag--danger { background: var(--color-danger-bg); color: var(--color-danger); }\n.ui-alert { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem; border-radius: var(--radius-md); border: 1px solid; color: #111827; }\n.ui-alert strong { font-size: .9rem; }\n.ui-alert p { margin: .25rem 0 0; font-size: .83rem; }\n.ui-alert--info { background: var(--color-info-bg); border-color: var(--color-info); }\n.ui-alert--success { background: var(--color-success-bg); border-color: var(--color-success); }\n.ui-alert--warning { background: var(--color-warning-bg); border-color: var(--color-warning); }\n.ui-alert--danger { background: var(--color-danger-bg); border-color: var(--color-danger); }\n.alerts-stack { display: grid; gap: .7rem; margin-bottom: 1.1rem; }\n.ui-alert__dismiss { align-self: start; border: 0; background: transparent; color: inherit; font-size: 1.4rem; line-height: 1; padding: .2rem; }\n.settings-list { display: grid; border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }\n.ui-switch { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem; cursor: pointer; }\n.ui-switch + .ui-switch { border-top: 1px solid var(--color-border); }\n.ui-switch__copy { display: grid; gap: .15rem; }\n.ui-switch__copy strong { font-size: .88rem; }\n.ui-switch__copy small { color: var(--color-muted); }\n.ui-switch input { display: none; } /* BUG: invisible for keyboard and accessibility tree */\n.ui-switch__track { flex: 0 0 2.6rem; width: 2.6rem; height: 1.5rem; background: #adb7c6; border-radius: 2rem; padding: .2rem; transition: background-color var(--motion-fast); }\n.ui-switch__thumb { display: block; width: 1.1rem; height: 1.1rem; background: white; border-radius: 50%; transition: transform var(--motion-fast); }\n.ui-switch input:checked + .ui-switch__track { background: var(--color-accent); }\n.ui-switch input:checked + .ui-switch__track .ui-switch__thumb { transform: translateX(1.1rem); }\n.ui-switch input:disabled + .ui-switch__track { opacity: .4; }\n.ui-dialog { width: min(92vw, 30rem); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.6rem; background: var(--color-surface); color: var(--color-ink); box-shadow: 0 24px 90px rgba(8, 15, 45, .28); }\n.ui-dialog::backdrop { background: rgba(10, 17, 40, .65); backdrop-filter: blur(3px); }\n.ui-dialog__head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }\n.ui-dialog h2 { margin: .8rem 0 .5rem; }\n.ui-dialog p { color: var(--color-muted); }\n.ui-dialog__actions { display: flex; justify-content: flex-end; gap: .5rem; margin-top: 1.6rem; }\n@media (max-width: 720px) { .card-grid, .form-grid { grid-template-columns: 1fr; } }\n',
+    expected: /\.ui-switch\s+input\s*\{[^}]*display\s*:\s*none/is,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at tests\architecture.test.mjs:33:1
+✖ 07 — визуальные стили компонентов зависят от токенов, не от жёстких hex (0.2172ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /#[0-9a-f]{3,8}\b/i. Input:
+  
+  '/* BASE COMPONENT STYLES. Some inconsistencies are intentional. */\n' +
+    '.ui-button { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-height: var(--control-height); padding: .65rem 1.1rem; border: 1px solid transparent; text-decoration: none; font-weight: 700; font-size: .86rem; border-radius: var(--radius-md); transition: background-color var(--motion-fast), transform var(--motion-fast), box-shadow var(--motion-fast); }\n' +
+    '.ui-button { letter-spacing: .005em; padding-inline: 1.25rem; } /* DUPLICATED RULE: audit this. */\n' +
+    '.ui-button--primary { background: #3659d9; color: #ffffff; }\n' +
+    '.ui-button--secondary { background: var(--color-surface); color: var(--color-ink); border-color: var(--color-border); }\n' +
+    '.ui-button--ghost { background: transparent; color: var(--color-ink); }\n' +
+    '.ui-button--danger { background: #b42336; color: #fff; }\n' +
+    '.ui-button--sm { min-height: 2.15rem; padding: .4rem .75rem; font-size: .78rem; }\n' +
+    '.ui-button--lg { min-height: 3.25rem; padding: .85rem 1.4rem; font-size: 1rem; }\n' +
+    '.ui-field { display: flex; flex-direction: column; gap: .4rem; }\n' +
+    '.ui-field label { font-weight: 650; font-size: .88rem; }\n' +
+    '.ui-field input, .ui-field textarea { width: 100%; min-width: 20rem; padding: .7rem .8rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-ink); }\n' +
+    '.ui-field__hint { font-size: .75rem; color: var(--color-muted); }\n' +
+    '.ui-field__actions { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }\n' +
+    '.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n' +
+    '.ui-field--full, .ui-field__actions { grid-column: 1 / -1; }\n' +
+    '.ui-card { display: flex; flex-direction: column; min-width: 22rem; padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface); box-shadow: var(--shadow-card); }\n' +
+    '.ui-card--featured { border-color: var(--color-accent); }\n' +
+    '.ui-card__meta { display: flex; justify-content: space-between; align-items: center; gap: .6rem; margin-bottom: .9rem; color: var(--color-muted); font-size: .7rem; }\n' +
+    '.ui-card h3 { font-size: 1rem; line-height: 1.35; overflow-wrap: anywhere; }\n' +
+    '.ui-card p { color: var(--color-muted); font-size: .82rem; }\n' +
+    '.ui-card > .ui-button { align-self: flex-start; margin-top: auto; }\n' +
+    '.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n' +
+    '.ui-tag { display: inline-flex; align-items: center; min-height: 1.6rem; border-radius: 50px; font-size: .69rem; line-height: 1.2; font-weight: 750; padding: .25rem .65rem; white-space: nowrap; }\n' +
+    '.ui-tag--neutral { background: var(--color-surface-alt); border: 1px solid var(--color-border); color: var(--color-muted); }\n' +
+    '.ui-tag--success { background: var(--color-success-bg); color: var(--color-success); }\n' +
+    '.ui-tag--warning { background: var(--color-warning-bg); color: var(--color-warning); }\n' +
+    '.ui-tag--danger { background: var(--color-danger-bg); color: var(--color-danger); }\n' +
+    '.ui-alert { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem; border-radius: var(--radius-md); border: 1px solid; color: #111827; }\n' +
+    '.ui-alert strong { font-size: .9rem; }\n' +
+    '.ui-alert p { margin: .25rem 0 0; font-size: .83rem; }\n' +
+    '.ui-alert--info { background: var(--color-info-bg); border-color: var(--color-info); }\n' +
+    '.ui-alert--success { background: var(--color-success-bg); border-color: var(--color-success); }\n' +
+    '.ui-alert--warning { background: var(--color-warning-bg); border-color: var(--color-warning); }\n' +
+    '.ui-alert--danger { background: var(--color-danger-bg); border-color: var(--color-danger); }\n' +
+    '.alerts-stack { display: grid; gap: .7rem; margin-bottom: 1.1rem; }\n' +
+    '.ui-alert__dismiss { align-self: start; border: 0; background: transparent; color: inherit; font-size: 1.4rem; line-height: 1; padding: .2rem; }\n' +
+    '.settings-list { display: grid; border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }\n' +
+    '.ui-switch { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem; cursor: pointer; }\n' +
+    '.ui-switch + .ui-switch { border-top: 1px solid var(--color-border); }\n' +
+    '.ui-switch__copy { display: grid; gap: .15rem; }\n' +
+    '.ui-switch__copy strong { font-size: .88rem; }\n' +
+    '.ui-switch__copy small { color: var(--color-muted); }\n' +
+    '.ui-switch input { display: none; } /* BUG: invisible for keyboard and accessibility tree */\n' +
+    '.ui-switch__track { flex: 0 0 2.6rem; width: 2.6rem; height: 1.5rem; background: #adb7c6; border-radius: 2rem; padding: .2rem; transition: background-color var(--motion-fast); }\n' +
+    '.ui-switch__thumb { display: block; width: 1.1rem; height: 1.1rem; background: white; border-radius: 50%; transition: transform var(--motion-fast); }\n' +
+    '.ui-switch input:checked + .ui-switch__track { background: var(--color-accent); }\n' +
+    '.ui-switch input:checked + .ui-switch__track .ui-switch__thumb { transform: translateX(1.1rem); }\n' +
+    '.ui-switch input:disabled + .ui-switch__track { opacity: .4; }\n' +
+    '.ui-dialog { width: min(92vw, 30rem); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.6rem; background: var(--color-surface); color: var(--color-ink); box-shadow: 0 24px 90px rgba(8, 15, 45, .28); }\n' +
+    '.ui-dialog::backdrop { background: rgba(10, 17, 40, .65); backdrop-filter: blur(3px); }\n' +
+    '.ui-dialog__head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }\n' +
+    '.ui-dialog h2 { margin: .8rem 0 .5rem; }\n' +
+    '.ui-dialog p { color: var(--color-muted); }\n' +
+    '.ui-dialog__actions { display: flex; justify-content: flex-end; gap: .5rem; margin-top: 1.6rem; }\n' +
+    '@media (max-width: 720px) { .card-grid, .form-grid { grid-template-columns: 1fr; } }\n' +
+    '\n' +
+    '/* INTERACTION STATES: intentionally incomplete and in conflict with base. */\n' +
+    '.ui-button:hover { transform: translateY(-1px); }\n' +
+    '.ui-button--primary:hover { background: var(--color-accent-hover); }\n' +
+    '.ui-button--secondary:hover, .ui-button--ghost:hover { background: var(--color-surface-alt); }\n' +
+    '.ui-button--danger:hover { background: #971d2a; }\n' +
+    '.ui-button:focus { outline: none; } /* BUG: removes visible keyboard focus */\n' +
+    '.ui-button:active { transform: translateY(0); }\n' +
+    '.ui-button:disabled { opacity: .45; pointer-events: none; }\n' +
+    '.ui-field:has(input:invalid) input { border-color: #b42336; background: #fff0f2; } /* BUG: premature invalid state */\n' +
+    '.ui-field:has(input:invalid) .ui-field__hint { color: #b42336; }\n' +
+    '.is-danger { background: #c12236; color: #ffffff; } /* BUG: global class conflicts with tags and alerts */\n' +
+    ':is(.ui-card, #workbench) .ui-tag { padding-inline: 1rem; } /* BUG: :is() inherits high specificity from ID */\n' +
+    '.ui-tag:hover { filter: brightness(.94); cursor: pointer; } /* BUG: tag has no action */\n' +
+    '.ui-alert { transition: background-color 240ms, color 240ms; }\n'
+  
+      at TestContext.<anonymous> (file:///C:/Users/user/Documents/WebDevelopment/For_V_Practice_6/ARCH06_STUDENTS/project/tests/architecture.test.mjs:34:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '/* BASE COMPONENT STYLES. Some inconsistencies are intentional. */\n.ui-button { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-height: var(--control-height); padding: .65rem 1.1rem; border: 1px solid transparent; text-decoration: none; font-weight: 700; font-size: .86rem; border-radius: var(--radius-md); transition: background-color var(--motion-fast), transform var(--motion-fast), box-shadow var(--motion-fast); }\n.ui-button { letter-spacing: .005em; padding-inline: 1.25rem; } /* DUPLICATED RULE: audit this. */\n.ui-button--primary { background: #3659d9; color: #ffffff; }\n.ui-button--secondary { background: var(--color-surface); color: var(--color-ink); border-color: var(--color-border); }\n.ui-button--ghost { background: transparent; color: var(--color-ink); }\n.ui-button--danger { background: #b42336; color: #fff; }\n.ui-button--sm { min-height: 2.15rem; padding: .4rem .75rem; font-size: .78rem; }\n.ui-button--lg { min-height: 3.25rem; padding: .85rem 1.4rem; font-size: 1rem; }\n.ui-field { display: flex; flex-direction: column; gap: .4rem; }\n.ui-field label { font-weight: 650; font-size: .88rem; }\n.ui-field input, .ui-field textarea { width: 100%; min-width: 20rem; padding: .7rem .8rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-ink); }\n.ui-field__hint { font-size: .75rem; color: var(--color-muted); }\n.ui-field__actions { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }\n.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n.ui-field--full, .ui-field__actions { grid-column: 1 / -1; }\n.ui-card { display: flex; flex-direction: column; min-width: 22rem; padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface); box-shadow: var(--shadow-card); }\n.ui-card--featured { border-color: var(--color-accent); }\n.ui-card__meta { display: flex; justify-content: space-between; align-items: center; gap: .6rem; margin-bottom: .9rem; color: var(--color-muted); font-size: .7rem; }\n.ui-card h3 { font-size: 1rem; line-height: 1.35; overflow-wrap: anywhere; }\n.ui-card p { color: var(--color-muted); font-size: .82rem; }\n.ui-card > .ui-button { align-self: flex-start; margin-top: auto; }\n.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n.ui-tag { display: inline-flex; align-items: center; min-height: 1.6rem; border-radius: 50px; font-size: .69rem; line-height: 1.2; font-weight: 750; padding: .25rem .65rem; white-space: nowrap; }\n.ui-tag--neutral { background: var(--color-surface-alt); border: 1px solid var(--color-border); color: var(--color-muted); }\n.ui-tag--success { background: var(--color-success-bg); color: var(--color-success); }\n.ui-tag--warning { background: var(--color-warning-bg); color: var(--color-warning); }\n.ui-tag--danger { background: var(--color-danger-bg); color: var(--color-danger); }\n.ui-alert { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem; border-radius: var(--radius-md); border: 1px solid; color: #111827; }\n.ui-alert strong { font-size: .9rem; }\n.ui-alert p { margin: .25rem 0 0; font-size: .83rem; }\n.ui-alert--info { background: var(--color-info-bg); border-color: var(--color-info); }\n.ui-alert--success { background: var(--color-success-bg); border-color: var(--color-success); }\n.ui-alert--warning { background: var(--color-warning-bg); border-color: var(--color-warning); }\n.ui-alert--danger { background: var(--color-danger-bg); border-color: var(--color-danger); }\n.alerts-stack { display: grid; gap: .7rem; margin-bottom: 1.1rem; }\n.ui-alert__dismiss { align-self: start; border: 0; background: transparent; color: inherit; font-size: 1.4rem; line-height: 1; padding: .2rem; }\n.settings-list { display: grid; border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }\n.ui-switch { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem; cursor: pointer; }\n.ui-switch + .ui-switch { border-top: 1px solid var(--color-border); }\n.ui-switch__copy { display: grid; gap: .15rem; }\n.ui-switch__copy strong { font-size: .88rem; }\n.ui-switch__copy small { color: var(--color-muted); }\n.ui-switch input { display: none; } /* BUG: invisible for keyboard and accessibility tree */\n.ui-switch__track { flex: 0 0 2.6rem; width: 2.6rem; height: 1.5rem; background: #adb7c6; border-radius: 2rem; padding: .2rem; transition: background-color var(--motion-fast); }\n.ui-switch__thumb { display: block; width: 1.1rem; height: 1.1rem; background: white; border-radius: 50%; transition: transform var(--motion-fast); }\n.ui-switch input:checked + .ui-switch__track { background: var(--color-accent); }\n.ui-switch input:checked + .ui-switch__track .ui-switch__thumb { transform: translateX(1.1rem); }\n.ui-switch input:disabled + .ui-switch__track { opacity: .4; }\n.ui-dialog { width: min(92vw, 30rem); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.6rem; background: var(--color-surface); color: var(--color-ink); box-shadow: 0 24px 90px rgba(8, 15, 45, .28); }\n.ui-dialog::backdrop { background: rgba(10, 17, 40, .65); backdrop-filter: blur(3px); }\n.ui-dialog__head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }\n.ui-dialog h2 { margin: .8rem 0 .5rem; }\n.ui-dialog p { color: var(--color-muted); }\n.ui-dialog__actions { display: flex; justify-content: flex-end; gap: .5rem; margin-top: 1.6rem; }\n@media (max-width: 720px) { .card-grid, .form-grid { grid-template-columns: 1fr; } }\n\n/* INTERACTION STATES: intentionally incomplete and in conflict with base. */\n.ui-button:hover { transform: translateY(-1px); }\n.ui-button--primary:hover { background: var(--color-accent-hover); }\n.ui-button--secondary:hover, .ui-button--ghost:hover { background: var(--color-surface-alt); }\n.ui-button--danger:hover { background: #971d2a; }\n.ui-button:focus { outline: none; } /* BUG: removes visible keyboard focus */\n.ui-button:active { transform: translateY(0); }\n.ui-button:disabled { opacity: .45; pointer-events: none; }\n.ui-field:has(input:invalid) input { border-color: #b42336; background: #fff0f2; } /* BUG: premature invalid state */\n.ui-field:has(input:invalid) .ui-field__hint { color: #b42336; }\n.is-danger { background: #c12236; color: #ffffff; } /* BUG: global class conflicts with tags and alerts */\n:is(.ui-card, #workbench) .ui-tag { padding-inline: 1rem; } /* BUG: :is() inherits high specificity from ID */\n.ui-tag:hover { filter: brightness(.94); cursor: pointer; } /* BUG: tag has no action */\n.ui-alert { transition: background-color 240ms, color 240ms; }\n',
+    expected: /#[0-9a-f]{3,8}\b/i,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at tests\architecture.test.mjs:36:1
+✖ 08 — глобальный .is-danger не должен перезаписывать разные компоненты (0.1722ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /(^|\n)\s*\.is-danger\s*\{/m. Input:
+  
+  '/* INTERACTION STATES: intentionally incomplete and in conflict with base. */\n' +
+    '.ui-button:hover { transform: translateY(-1px); }\n' +
+    '.ui-button--primary:hover { background: var(--color-accent-hover); }\n' +
+    '.ui-button--secondary:hover, .ui-button--ghost:hover { background: var(--color-surface-alt); }\n' +
+    '.ui-button--danger:hover { background: #971d2a; }\n' +
+    '.ui-button:focus { outline: none; } /* BUG: removes visible keyboard focus */\n' +
+    '.ui-button:active { transform: translateY(0); }\n' +
+    '.ui-button:disabled { opacity: .45; pointer-events: none; }\n' +
+    '.ui-field:has(input:invalid) input { border-color: #b42336; background: #fff0f2; } /* BUG: premature invalid state */\n' +
+    '.ui-field:has(input:invalid) .ui-field__hint { color: #b42336; }\n' +
+    '.is-danger { background: #c12236; color: #ffffff; } /* BUG: global class conflicts with tags and alerts */\n' +
+    ':is(.ui-card, #workbench) .ui-tag { padding-inline: 1rem; } /* BUG: :is() inherits high specificity from ID */\n' +
+    '.ui-tag:hover { filter: brightness(.94); cursor: pointer; } /* BUG: tag has no action */\n' +
+    '.ui-alert { transition: background-color 240ms, color 240ms; }\n' +
+    '\n' +
+    '/* VENDOR STYLESHEET — inherited from a contractor; cannot be deleted. */\n' +
+    'button { border-radius: 0; }\n' +
+    '#workbench .ui-button { background: #2939a8; padding: .45rem .65rem; }\n' +
+    '#workbench .ui-button.is-danger { background: #a41e24 !important; }\n' +
+    '.is-danger { color: #fff; }\n' +
+    '.ui-card p { font-size: .69rem; }\n' +
+    'input { outline: none; }\n' +
+    '.legacy-widget { font-family: Georgia, serif; border: 2px dashed #8492ac; }\n' +
+    '.legacy-action { border: 0; background: #243b6b; color: white; padding: .55rem .9rem; font: inherit; }\n'
+  
+      at TestContext.<anonymous> (file:///C:/Users/user/Documents/WebDevelopment/For_V_Practice_6/ARCH06_STUDENTS/project/tests/architecture.test.mjs:37:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '/* INTERACTION STATES: intentionally incomplete and in conflict with base. */\n.ui-button:hover { transform: translateY(-1px); }\n.ui-button--primary:hover { background: var(--color-accent-hover); }\n.ui-button--secondary:hover, .ui-button--ghost:hover { background: var(--color-surface-alt); }\n.ui-button--danger:hover { background: #971d2a; }\n.ui-button:focus { outline: none; } /* BUG: removes visible keyboard focus */\n.ui-button:active { transform: translateY(0); }\n.ui-button:disabled { opacity: .45; pointer-events: none; }\n.ui-field:has(input:invalid) input { border-color: #b42336; background: #fff0f2; } /* BUG: premature invalid state */\n.ui-field:has(input:invalid) .ui-field__hint { color: #b42336; }\n.is-danger { background: #c12236; color: #ffffff; } /* BUG: global class conflicts with tags and alerts */\n:is(.ui-card, #workbench) .ui-tag { padding-inline: 1rem; } /* BUG: :is() inherits high specificity from ID */\n.ui-tag:hover { filter: brightness(.94); cursor: pointer; } /* BUG: tag has no action */\n.ui-alert { transition: background-color 240ms, color 240ms; }\n\n/* VENDOR STYLESHEET — inherited from a contractor; cannot be deleted. */\nbutton { border-radius: 0; }\n#workbench .ui-button { background: #2939a8; padding: .45rem .65rem; }\n#workbench .ui-button.is-danger { background: #a41e24 !important; }\n.is-danger { color: #fff; }\n.ui-card p { font-size: .69rem; }\ninput { outline: none; }\n.legacy-widget { font-family: Georgia, serif; border: 2px dashed #8492ac; }\n.legacy-action { border: 0; background: #243b6b; color: white; padding: .55rem .9rem; font: inherit; }\n',
+    expected: /(^|\n)\s*\.is-danger\s*\{/m,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at tests\architecture.test.mjs:39:1
+✖ 09 — ошибки поля показываются по aria-invalid, не сразу по :invalid (0.1573ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /\.ui-field:has\(input\[aria-invalid=['"]true['"]\]\)/. Input:
+  
+  '/* INTERACTION STATES: intentionally incomplete and in conflict with base. */\n' +
+    '.ui-button:hover { transform: translateY(-1px); }\n' +
+    '.ui-button--primary:hover { background: var(--color-accent-hover); }\n' +
+    '.ui-button--secondary:hover, .ui-button--ghost:hover { background: var(--color-surface-alt); }\n' +
+    '.ui-button--danger:hover { background: #971d2a; }\n' +
+    '.ui-button:focus { outline: none; } /* BUG: removes visible keyboard focus */\n' +
+    '.ui-button:active { transform: translateY(0); }\n' +
+    '.ui-button:disabled { opacity: .45; pointer-events: none; }\n' +
+    '.ui-field:has(input:invalid) input { border-color: #b42336; background: #fff0f2; } /* BUG: premature invalid state */\n' +
+    '.ui-field:has(input:invalid) .ui-field__hint { color: #b42336; }\n' +
+    '.is-danger { background: #c12236; color: #ffffff; } /* BUG: global class conflicts with tags and alerts */\n' +
+    ':is(.ui-card, #workbench) .ui-tag { padding-inline: 1rem; } /* BUG: :is() inherits high specificity from ID */\n' +
+    '.ui-tag:hover { filter: brightness(.94); cursor: pointer; } /* BUG: tag has no action */\n' +
+    '.ui-alert { transition: background-color 240ms, color 240ms; }\n'
+  
+      at TestContext.<anonymous> (file:///C:/Users/user/Documents/WebDevelopment/For_V_Practice_6/ARCH06_STUDENTS/project/tests/architecture.test.mjs:40:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '/* INTERACTION STATES: intentionally incomplete and in conflict with base. */\n.ui-button:hover { transform: translateY(-1px); }\n.ui-button--primary:hover { background: var(--color-accent-hover); }\n.ui-button--secondary:hover, .ui-button--ghost:hover { background: var(--color-surface-alt); }\n.ui-button--danger:hover { background: #971d2a; }\n.ui-button:focus { outline: none; } /* BUG: removes visible keyboard focus */\n.ui-button:active { transform: translateY(0); }\n.ui-button:disabled { opacity: .45; pointer-events: none; }\n.ui-field:has(input:invalid) input { border-color: #b42336; background: #fff0f2; } /* BUG: premature invalid state */\n.ui-field:has(input:invalid) .ui-field__hint { color: #b42336; }\n.is-danger { background: #c12236; color: #ffffff; } /* BUG: global class conflicts with tags and alerts */\n:is(.ui-card, #workbench) .ui-tag { padding-inline: 1rem; } /* BUG: :is() inherits high specificity from ID */\n.ui-tag:hover { filter: brightness(.94); cursor: pointer; } /* BUG: tag has no action */\n.ui-alert { transition: background-color 240ms, color 240ms; }\n',
+    expected: /\.ui-field:has\(input\[aria-invalid=['"]true['"]\]\)/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\architecture.test.mjs:43:1
+✖ 10 — компонентные CSS не содержат фиксированных мобильных min-width (0.2448ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /min-width\s*:\s*(?:20|22)rem/. Input:
+  
+  '/* BASE COMPONENT STYLES. Some inconsistencies are intentional. */\n' +
+    '.ui-button { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-height: var(--control-height); padding: .65rem 1.1rem; border: 1px solid transparent; text-decoration: none; font-weight: 700; font-size: .86rem; border-radius: var(--radius-md); transition: background-color var(--motion-fast), transform var(--motion-fast), box-shadow var(--motion-fast); }\n' +
+    '.ui-button { letter-spacing: .005em; padding-inline: 1.25rem; } /* DUPLICATED RULE: audit this. */\n' +
+    '.ui-button--primary { background: #3659d9; color: #ffffff; }\n' +
+    '.ui-button--secondary { background: var(--color-surface); color: var(--color-ink); border-color: var(--color-border); }\n' +
+    '.ui-button--ghost { background: transparent; color: var(--color-ink); }\n' +
+    '.ui-button--danger { background: #b42336; color: #fff; }\n' +
+    '.ui-button--sm { min-height: 2.15rem; padding: .4rem .75rem; font-size: .78rem; }\n' +
+    '.ui-button--lg { min-height: 3.25rem; padding: .85rem 1.4rem; font-size: 1rem; }\n' +
+    '.ui-field { display: flex; flex-direction: column; gap: .4rem; }\n' +
+    '.ui-field label { font-weight: 650; font-size: .88rem; }\n' +
+    '.ui-field input, .ui-field textarea { width: 100%; min-width: 20rem; padding: .7rem .8rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-ink); }\n' +
+    '.ui-field__hint { font-size: .75rem; color: var(--color-muted); }\n' +
+    '.ui-field__actions { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }\n' +
+    '.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n' +
+    '.ui-field--full, .ui-field__actions { grid-column: 1 / -1; }\n' +
+    '.ui-card { display: flex; flex-direction: column; min-width: 22rem; padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface); box-shadow: var(--shadow-card); }\n' +
+    '.ui-card--featured { border-color: var(--color-accent); }\n' +
+    '.ui-card__meta { display: flex; justify-content: space-between; align-items: center; gap: .6rem; margin-bottom: .9rem; color: var(--color-muted); font-size: .7rem; }\n' +
+    '.ui-card h3 { font-size: 1rem; line-height: 1.35; overflow-wrap: anywhere; }\n' +
+    '.ui-card p { color: var(--color-muted); font-size: .82rem; }\n' +
+    '.ui-card > .ui-button { align-self: flex-start; margin-top: auto; }\n' +
+    '.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n' +
+    '.ui-tag { display: inline-flex; align-items: center; min-height: 1.6rem; border-radius: 50px; font-size: .69rem; line-height: 1.2; font-weight: 750; padding: .25rem .65rem; white-space: nowrap; }\n' +
+    '.ui-tag--neutral { background: var(--color-surface-alt); border: 1px solid var(--color-border); color: var(--color-muted); }\n' +
+    '.ui-tag--success { background: var(--color-success-bg); color: var(--color-success); }\n' +
+    '.ui-tag--warning { background: var(--color-warning-bg); color: var(--color-warning); }\n' +
+    '.ui-tag--danger { background: var(--color-danger-bg); color: var(--color-danger); }\n' +
+    '.ui-alert { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem; border-radius: var(--radius-md); border: 1px solid; color: #111827; }\n' +
+    '.ui-alert strong { font-size: .9rem; }\n' +
+    '.ui-alert p { margin: .25rem 0 0; font-size: .83rem; }\n' +
+    '.ui-alert--info { background: var(--color-info-bg); border-color: var(--color-info); }\n' +
+    '.ui-alert--success { background: var(--color-success-bg); border-color: var(--color-success); }\n' +
+    '.ui-alert--warning { background: var(--color-warning-bg); border-color: var(--color-warning); }\n' +
+    '.ui-alert--danger { background: var(--color-danger-bg); border-color: var(--color-danger); }\n' +
+    '.alerts-stack { display: grid; gap: .7rem; margin-bottom: 1.1rem; }\n' +
+    '.ui-alert__dismiss { align-self: start; border: 0; background: transparent; color: inherit; font-size: 1.4rem; line-height: 1; padding: .2rem; }\n' +
+    '.settings-list { display: grid; border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }\n' +
+    '.ui-switch { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem; cursor: pointer; }\n' +
+    '.ui-switch + .ui-switch { border-top: 1px solid var(--color-border); }\n' +
+    '.ui-switch__copy { display: grid; gap: .15rem; }\n' +
+    '.ui-switch__copy strong { font-size: .88rem; }\n' +
+    '.ui-switch__copy small { color: var(--color-muted); }\n' +
+    '.ui-switch input { display: none; } /* BUG: invisible for keyboard and accessibility tree */\n' +
+    '.ui-switch__track { flex: 0 0 2.6rem; width: 2.6rem; height: 1.5rem; background: #adb7c6; border-radius: 2rem; padding: .2rem; transition: background-color var(--motion-fast); }\n' +
+    '.ui-switch__thumb { display: block; width: 1.1rem; height: 1.1rem; background: white; border-radius: 50%; transition: transform var(--motion-fast); }\n' +
+    '.ui-switch input:checked + .ui-switch__track { background: var(--color-accent); }\n' +
+    '.ui-switch input:checked + .ui-switch__track .ui-switch__thumb { transform: translateX(1.1rem); }\n' +
+    '.ui-switch input:disabled + .ui-switch__track { opacity: .4; }\n' +
+    '.ui-dialog { width: min(92vw, 30rem); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.6rem; background: var(--color-surface); color: var(--color-ink); box-shadow: 0 24px 90px rgba(8, 15, 45, .28); }\n' +
+    '.ui-dialog::backdrop { background: rgba(10, 17, 40, .65); backdrop-filter: blur(3px); }\n' +
+    '.ui-dialog__head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }\n' +
+    '.ui-dialog h2 { margin: .8rem 0 .5rem; }\n' +
+    '.ui-dialog p { color: var(--color-muted); }\n' +
+    '.ui-dialog__actions { display: flex; justify-content: flex-end; gap: .5rem; margin-top: 1.6rem; }\n' +
+    '@media (max-width: 720px) { .card-grid, .form-grid { grid-template-columns: 1fr; } }\n'
+  
+      at TestContext.<anonymous> (file:///C:/Users/user/Documents/WebDevelopment/For_V_Practice_6/ARCH06_STUDENTS/project/tests/architecture.test.mjs:44:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '/* BASE COMPONENT STYLES. Some inconsistencies are intentional. */\n.ui-button { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-height: var(--control-height); padding: .65rem 1.1rem; border: 1px solid transparent; text-decoration: none; font-weight: 700; font-size: .86rem; border-radius: var(--radius-md); transition: background-color var(--motion-fast), transform var(--motion-fast), box-shadow var(--motion-fast); }\n.ui-button { letter-spacing: .005em; padding-inline: 1.25rem; } /* DUPLICATED RULE: audit this. */\n.ui-button--primary { background: #3659d9; color: #ffffff; }\n.ui-button--secondary { background: var(--color-surface); color: var(--color-ink); border-color: var(--color-border); }\n.ui-button--ghost { background: transparent; color: var(--color-ink); }\n.ui-button--danger { background: #b42336; color: #fff; }\n.ui-button--sm { min-height: 2.15rem; padding: .4rem .75rem; font-size: .78rem; }\n.ui-button--lg { min-height: 3.25rem; padding: .85rem 1.4rem; font-size: 1rem; }\n.ui-field { display: flex; flex-direction: column; gap: .4rem; }\n.ui-field label { font-weight: 650; font-size: .88rem; }\n.ui-field input, .ui-field textarea { width: 100%; min-width: 20rem; padding: .7rem .8rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-ink); }\n.ui-field__hint { font-size: .75rem; color: var(--color-muted); }\n.ui-field__actions { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }\n.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n.ui-field--full, .ui-field__actions { grid-column: 1 / -1; }\n.ui-card { display: flex; flex-direction: column; min-width: 22rem; padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface); box-shadow: var(--shadow-card); }\n.ui-card--featured { border-color: var(--color-accent); }\n.ui-card__meta { display: flex; justify-content: space-between; align-items: center; gap: .6rem; margin-bottom: .9rem; color: var(--color-muted); font-size: .7rem; }\n.ui-card h3 { font-size: 1rem; line-height: 1.35; overflow-wrap: anywhere; }\n.ui-card p { color: var(--color-muted); font-size: .82rem; }\n.ui-card > .ui-button { align-self: flex-start; margin-top: auto; }\n.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n.ui-tag { display: inline-flex; align-items: center; min-height: 1.6rem; border-radius: 50px; font-size: .69rem; line-height: 1.2; font-weight: 750; padding: .25rem .65rem; white-space: nowrap; }\n.ui-tag--neutral { background: var(--color-surface-alt); border: 1px solid var(--color-border); color: var(--color-muted); }\n.ui-tag--success { background: var(--color-success-bg); color: var(--color-success); }\n.ui-tag--warning { background: var(--color-warning-bg); color: var(--color-warning); }\n.ui-tag--danger { background: var(--color-danger-bg); color: var(--color-danger); }\n.ui-alert { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem; border-radius: var(--radius-md); border: 1px solid; color: #111827; }\n.ui-alert strong { font-size: .9rem; }\n.ui-alert p { margin: .25rem 0 0; font-size: .83rem; }\n.ui-alert--info { background: var(--color-info-bg); border-color: var(--color-info); }\n.ui-alert--success { background: var(--color-success-bg); border-color: var(--color-success); }\n.ui-alert--warning { background: var(--color-warning-bg); border-color: var(--color-warning); }\n.ui-alert--danger { background: var(--color-danger-bg); border-color: var(--color-danger); }\n.alerts-stack { display: grid; gap: .7rem; margin-bottom: 1.1rem; }\n.ui-alert__dismiss { align-self: start; border: 0; background: transparent; color: inherit; font-size: 1.4rem; line-height: 1; padding: .2rem; }\n.settings-list { display: grid; border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }\n.ui-switch { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem; cursor: pointer; }\n.ui-switch + .ui-switch { border-top: 1px solid var(--color-border); }\n.ui-switch__copy { display: grid; gap: .15rem; }\n.ui-switch__copy strong { font-size: .88rem; }\n.ui-switch__copy small { color: var(--color-muted); }\n.ui-switch input { display: none; } /* BUG: invisible for keyboard and accessibility tree */\n.ui-switch__track { flex: 0 0 2.6rem; width: 2.6rem; height: 1.5rem; background: #adb7c6; border-radius: 2rem; padding: .2rem; transition: background-color var(--motion-fast); }\n.ui-switch__thumb { display: block; width: 1.1rem; height: 1.1rem; background: white; border-radius: 50%; transition: transform var(--motion-fast); }\n.ui-switch input:checked + .ui-switch__track { background: var(--color-accent); }\n.ui-switch input:checked + .ui-switch__track .ui-switch__thumb { transform: translateX(1.1rem); }\n.ui-switch input:disabled + .ui-switch__track { opacity: .4; }\n.ui-dialog { width: min(92vw, 30rem); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.6rem; background: var(--color-surface); color: var(--color-ink); box-shadow: 0 24px 90px rgba(8, 15, 45, .28); }\n.ui-dialog::backdrop { background: rgba(10, 17, 40, .65); backdrop-filter: blur(3px); }\n.ui-dialog__head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }\n.ui-dialog h2 { margin: .8rem 0 .5rem; }\n.ui-dialog p { color: var(--color-muted); }\n.ui-dialog__actions { display: flex; justify-content: flex-end; gap: .5rem; margin-top: 1.6rem; }\n@media (max-width: 720px) { .card-grid, .form-grid { grid-template-columns: 1fr; } }\n',
+    expected: /min-width\s*:\s*(?:20|22)rem/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at tests\architecture.test.mjs:46:1
+✖ 11 — кнопка имеет один базовый блок .ui-button (0.1681ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/user/Documents/WebDevelopment/For_V_Practice_6/ARCH06_STUDENTS/project/tests/architecture.test.mjs:47:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\architecture.test.mjs:49:1
+✖ 12 — предусмотрен режим reduced motion (0.4612ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /prefers-reduced-motion\s*:\s*reduce/. Input:
+  
+  '/* INTERACTION STATES: intentionally incomplete and in conflict with base. */\n' +
+    '.ui-button:hover { transform: translateY(-1px); }\n' +
+    '.ui-button--primary:hover { background: var(--color-accent-hover); }\n' +
+    '.ui-button--secondary:hover, .ui-button--ghost:hover { background: var(--color-surface-alt); }\n' +
+    '.ui-button--danger:hover { background: #971d2a; }\n' +
+    '.ui-button:focus { outline: none; } /* BUG: removes visible keyboard focus */\n' +
+    '.ui-button:active { transform: translateY(0); }\n' +
+    '.ui-button:disabled { opacity: .45; pointer-events: none; }\n' +
+    '.ui-field:has(input:invalid) input { border-color: #b42336; background: #fff0f2; } /* BUG: premature invalid state */\n' +
+    '.ui-field:has(input:invalid) .ui-field__hint { color: #b42336; }\n' +
+    '.is-danger { background: #c12236; color: #ffffff; } /* BUG: global class conflicts with tags and alerts */\n' +
+    ':is(.ui-card, #workbench) .ui-tag { padding-inline: 1rem; } /* BUG: :is() inherits high specificity from ID */\n' +
+    '.ui-tag:hover { filter: brightness(.94); cursor: pointer; } /* BUG: tag has no action */\n' +
+    '.ui-alert { transition: background-color 240ms, color 240ms; }\n' +
+    '\n' +
+    '/* BASE COMPONENT STYLES. Some inconsistencies are intentional. */\n' +
+    '.ui-button { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-height: var(--control-height); padding: .65rem 1.1rem; border: 1px solid transparent; text-decoration: none; font-weight: 700; font-size: .86rem; border-radius: var(--radius-md); transition: background-color var(--motion-fast), transform var(--motion-fast), box-shadow var(--motion-fast); }\n' +
+    '.ui-button { letter-spacing: .005em; padding-inline: 1.25rem; } /* DUPLICATED RULE: audit this. */\n' +
+    '.ui-button--primary { background: #3659d9; color: #ffffff; }\n' +
+    '.ui-button--secondary { background: var(--color-surface); color: var(--color-ink); border-color: var(--color-border); }\n' +
+    '.ui-button--ghost { background: transparent; color: var(--color-ink); }\n' +
+    '.ui-button--danger { background: #b42336; color: #fff; }\n' +
+    '.ui-button--sm { min-height: 2.15rem; padding: .4rem .75rem; font-size: .78rem; }\n' +
+    '.ui-button--lg { min-height: 3.25rem; padding: .85rem 1.4rem; font-size: 1rem; }\n' +
+    '.ui-field { display: flex; flex-direction: column; gap: .4rem; }\n' +
+    '.ui-field label { font-weight: 650; font-size: .88rem; }\n' +
+    '.ui-field input, .ui-field textarea { width: 100%; min-width: 20rem; padding: .7rem .8rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-ink); }\n' +
+    '.ui-field__hint { font-size: .75rem; color: var(--color-muted); }\n' +
+    '.ui-field__actions { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }\n' +
+    '.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n' +
+    '.ui-field--full, .ui-field__actions { grid-column: 1 / -1; }\n' +
+    '.ui-card { display: flex; flex-direction: column; min-width: 22rem; padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface); box-shadow: var(--shadow-card); }\n' +
+    '.ui-card--featured { border-color: var(--color-accent); }\n' +
+    '.ui-card__meta { display: flex; justify-content: space-between; align-items: center; gap: .6rem; margin-bottom: .9rem; color: var(--color-muted); font-size: .7rem; }\n' +
+    '.ui-card h3 { font-size: 1rem; line-height: 1.35; overflow-wrap: anywhere; }\n' +
+    '.ui-card p { color: var(--color-muted); font-size: .82rem; }\n' +
+    '.ui-card > .ui-button { align-self: flex-start; margin-top: auto; }\n' +
+    '.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n' +
+    '.ui-tag { display: inline-flex; align-items: center; min-height: 1.6rem; border-radius: 50px; font-size: .69rem; line-height: 1.2; font-weight: 750; padding: .25rem .65rem; white-space: nowrap; }\n' +
+    '.ui-tag--neutral { background: var(--color-surface-alt); border: 1px solid var(--color-border); color: var(--color-muted); }\n' +
+    '.ui-tag--success { background: var(--color-success-bg); color: var(--color-success); }\n' +
+    '.ui-tag--warning { background: var(--color-warning-bg); color: var(--color-warning); }\n' +
+    '.ui-tag--danger { background: var(--color-danger-bg); color: var(--color-danger); }\n' +
+    '.ui-alert { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem; border-radius: var(--radius-md); border: 1px solid; color: #111827; }\n' +
+    '.ui-alert strong { font-size: .9rem; }\n' +
+    '.ui-alert p { margin: .25rem 0 0; font-size: .83rem; }\n' +
+    '.ui-alert--info { background: var(--color-info-bg); border-color: var(--color-info); }\n' +
+    '.ui-alert--success { background: var(--color-success-bg); border-color: var(--color-success); }\n' +
+    '.ui-alert--warning { background: var(--color-warning-bg); border-color: var(--color-warning); }\n' +
+    '.ui-alert--danger { background: var(--color-danger-bg); border-color: var(--color-danger); }\n' +
+    '.alerts-stack { display: grid; gap: .7rem; margin-bottom: 1.1rem; }\n' +
+    '.ui-alert__dismiss { align-self: start; border: 0; background: transparent; color: inherit; font-size: 1.4rem; line-height: 1; padding: .2rem; }\n' +
+    '.settings-list { display: grid; border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }\n' +
+    '.ui-switch { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem; cursor: pointer; }\n' +
+    '.ui-switch + .ui-switch { border-top: 1px solid var(--color-border); }\n' +
+    '.ui-switch__copy { display: grid; gap: .15rem; }\n' +
+    '.ui-switch__copy strong { font-size: .88rem; }\n' +
+    '.ui-switch__copy small { color: var(--color-muted); }\n' +
+    '.ui-switch input { display: none; } /* BUG: invisible for keyboard and accessibility tree */\n' +
+    '.ui-switch__track { flex: 0 0 2.6rem; width: 2.6rem; height: 1.5rem; background: #adb7c6; border-radius: 2rem; padding: .2rem; transition: background-color var(--motion-fast); }\n' +
+    '.ui-switch__thumb { display: block; width: 1.1rem; height: 1.1rem; background: white; border-radius: 50%; transition: transform var(--motion-fast); }\n' +
+    '.ui-switch input:checked + .ui-switch__track { background: var(--color-accent); }\n' +
+    '.ui-switch input:checked + .ui-switch__track .ui-switch__thumb { transform: translateX(1.1rem); }\n' +
+    '.ui-switch input:disabled + .ui-switch__track { opacity: .4; }\n' +
+    '.ui-dialog { width: min(92vw, 30rem); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.6rem; background: var(--color-surface); color: var(--color-ink); box-shadow: 0 24px 90px rgba(8, 15, 45, .28); }\n' +
+    '.ui-dialog::backdrop { background: rgba(10, 17, 40, .65); backdrop-filter: blur(3px); }\n' +
+    '.ui-dialog__head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }\n' +
+    '.ui-dialog h2 { margin: .8rem 0 .5rem; }\n' +
+    '.ui-dialog p { color: var(--color-muted); }\n' +
+    '.ui-dialog__actions { display: flex; justify-content: flex-end; gap: .5rem; margin-top: 1.6rem; }\n' +
+    '@media (max-width: 720px) { .card-grid, .form-grid { grid-template-columns: 1fr; } }\n' +
+    '\n' +
+    '/* Small, explicit utilities only; do not turn this into a second component layer. */\n' +
+    '.u-visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }\n' +
+    '@media (max-width: 440px) {\n' +
+    '  .site-header__actions .ui-button { width: 100%; }\n' +
+    '  .hero__actions .ui-button { width: 100%; }\n' +
+    '}\n'
+  
+      at TestContext.<anonymous> (file:///C:/Users/user/Documents/WebDevelopment/For_V_Practice_6/ARCH06_STUDENTS/project/tests/architecture.test.mjs:50:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '/* INTERACTION STATES: intentionally incomplete and in conflict with base. */\n.ui-button:hover { transform: translateY(-1px); }\n.ui-button--primary:hover { background: var(--color-accent-hover); }\n.ui-button--secondary:hover, .ui-button--ghost:hover { background: var(--color-surface-alt); }\n.ui-button--danger:hover { background: #971d2a; }\n.ui-button:focus { outline: none; } /* BUG: removes visible keyboard focus */\n.ui-button:active { transform: translateY(0); }\n.ui-button:disabled { opacity: .45; pointer-events: none; }\n.ui-field:has(input:invalid) input { border-color: #b42336; background: #fff0f2; } /* BUG: premature invalid state */\n.ui-field:has(input:invalid) .ui-field__hint { color: #b42336; }\n.is-danger { background: #c12236; color: #ffffff; } /* BUG: global class conflicts with tags and alerts */\n:is(.ui-card, #workbench) .ui-tag { padding-inline: 1rem; } /* BUG: :is() inherits high specificity from ID */\n.ui-tag:hover { filter: brightness(.94); cursor: pointer; } /* BUG: tag has no action */\n.ui-alert { transition: background-color 240ms, color 240ms; }\n\n/* BASE COMPONENT STYLES. Some inconsistencies are intentional. */\n.ui-button { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-height: var(--control-height); padding: .65rem 1.1rem; border: 1px solid transparent; text-decoration: none; font-weight: 700; font-size: .86rem; border-radius: var(--radius-md); transition: background-color var(--motion-fast), transform var(--motion-fast), box-shadow var(--motion-fast); }\n.ui-button { letter-spacing: .005em; padding-inline: 1.25rem; } /* DUPLICATED RULE: audit this. */\n.ui-button--primary { background: #3659d9; color: #ffffff; }\n.ui-button--secondary { background: var(--color-surface); color: var(--color-ink); border-color: var(--color-border); }\n.ui-button--ghost { background: transparent; color: var(--color-ink); }\n.ui-button--danger { background: #b42336; color: #fff; }\n.ui-button--sm { min-height: 2.15rem; padding: .4rem .75rem; font-size: .78rem; }\n.ui-button--lg { min-height: 3.25rem; padding: .85rem 1.4rem; font-size: 1rem; }\n.ui-field { display: flex; flex-direction: column; gap: .4rem; }\n.ui-field label { font-weight: 650; font-size: .88rem; }\n.ui-field input, .ui-field textarea { width: 100%; min-width: 20rem; padding: .7rem .8rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-ink); }\n.ui-field__hint { font-size: .75rem; color: var(--color-muted); }\n.ui-field__actions { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }\n.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n.ui-field--full, .ui-field__actions { grid-column: 1 / -1; }\n.ui-card { display: flex; flex-direction: column; min-width: 22rem; padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface); box-shadow: var(--shadow-card); }\n.ui-card--featured { border-color: var(--color-accent); }\n.ui-card__meta { display: flex; justify-content: space-between; align-items: center; gap: .6rem; margin-bottom: .9rem; color: var(--color-muted); font-size: .7rem; }\n.ui-card h3 { font-size: 1rem; line-height: 1.35; overflow-wrap: anywhere; }\n.ui-card p { color: var(--color-muted); font-size: .82rem; }\n.ui-card > .ui-button { align-self: flex-start; margin-top: auto; }\n.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n.ui-tag { display: inline-flex; align-items: center; min-height: 1.6rem; border-radius: 50px; font-size: .69rem; line-height: 1.2; font-weight: 750; padding: .25rem .65rem; white-space: nowrap; }\n.ui-tag--neutral { background: var(--color-surface-alt); border: 1px solid var(--color-border); color: var(--color-muted); }\n.ui-tag--success { background: var(--color-success-bg); color: var(--color-success); }\n.ui-tag--warning { background: var(--color-warning-bg); color: var(--color-warning); }\n.ui-tag--danger { background: var(--color-danger-bg); color: var(--color-danger); }\n.ui-alert { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem; border-radius: var(--radius-md); border: 1px solid; color: #111827; }\n.ui-alert strong { font-size: .9rem; }\n.ui-alert p { margin: .25rem 0 0; font-size: .83rem; }\n.ui-alert--info { background: var(--color-info-bg); border-color: var(--color-info); }\n.ui-alert--success { background: var(--color-success-bg); border-color: var(--color-success); }\n.ui-alert--warning { background: var(--color-warning-bg); border-color: var(--color-warning); }\n.ui-alert--danger { background: var(--color-danger-bg); border-color: var(--color-danger); }\n.alerts-stack { display: grid; gap: .7rem; margin-bottom: 1.1rem; }\n.ui-alert__dismiss { align-self: start; border: 0; background: transparent; color: inherit; font-size: 1.4rem; line-height: 1; padding: .2rem; }\n.settings-list { display: grid; border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }\n.ui-switch { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem; cursor: pointer; }\n.ui-switch + .ui-switch { border-top: 1px solid var(--color-border); }\n.ui-switch__copy { display: grid; gap: .15rem; }\n.ui-switch__copy strong { font-size: .88rem; }\n.ui-switch__copy small { color: var(--color-muted); }\n.ui-switch input { display: none; } /* BUG: invisible for keyboard and accessibility tree */\n.ui-switch__track { flex: 0 0 2.6rem; width: 2.6rem; height: 1.5rem; background: #adb7c6; border-radius: 2rem; padding: .2rem; transition: background-color var(--motion-fast); }\n.ui-switch__thumb { display: block; width: 1.1rem; height: 1.1rem; background: white; border-radius: 50%; transition: transform var(--motion-fast); }\n.ui-switch input:checked + .ui-switch__track { background: var(--color-accent); }\n.ui-switch input:checked + .ui-switch__track .ui-switch__thumb { transform: translateX(1.1rem); }\n.ui-switch input:disabled + .ui-switch__track { opacity: .4; }\n.ui-dialog { width: min(92vw, 30rem); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.6rem; background: var(--color-surface); color: var(--color-ink); box-shadow: 0 24px 90px rgba(8, 15, 45, .28); }\n.ui-dialog::backdrop { background: rgba(10, 17, 40, .65); backdrop-filter: blur(3px); }\n.ui-dialog__head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }\n.ui-dialog h2 { margin: .8rem 0 .5rem; }\n.ui-dialog p { color: var(--color-muted); }\n.ui-dialog__actions { display: flex; justify-content: flex-end; gap: .5rem; margin-top: 1.6rem; }\n@media (max-width: 720px) { .card-grid, .form-grid { grid-template-columns: 1fr; } }\n\n/* Small, explicit utilities only; do not turn this into a second component layer. */\n.u-visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }\n@media (max-width: 440px) {\n  .site-header__actions .ui-button { width: 100%; }\n  .hero__actions .ui-button { width: 100%; }\n}\n',
+    expected: /prefers-reduced-motion\s*:\s*reduce/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\architecture.test.mjs:52:1
+✖ 13 — отсутствует опасный :is со смешанным ID и классом (0.2281ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /:is\([^)]*#[a-z]/i. Input:
+  
+  '/* INTERACTION STATES: intentionally incomplete and in conflict with base. */\n' +
+    '.ui-button:hover { transform: translateY(-1px); }\n' +
+    '.ui-button--primary:hover { background: var(--color-accent-hover); }\n' +
+    '.ui-button--secondary:hover, .ui-button--ghost:hover { background: var(--color-surface-alt); }\n' +
+    '.ui-button--danger:hover { background: #971d2a; }\n' +
+    '.ui-button:focus { outline: none; } /* BUG: removes visible keyboard focus */\n' +
+    '.ui-button:active { transform: translateY(0); }\n' +
+    '.ui-button:disabled { opacity: .45; pointer-events: none; }\n' +
+    '.ui-field:has(input:invalid) input { border-color: #b42336; background: #fff0f2; } /* BUG: premature invalid state */\n' +
+    '.ui-field:has(input:invalid) .ui-field__hint { color: #b42336; }\n' +
+    '.is-danger { background: #c12236; color: #ffffff; } /* BUG: global class conflicts with tags and alerts */\n' +
+    ':is(.ui-card, #workbench) .ui-tag { padding-inline: 1rem; } /* BUG: :is() inherits high specificity from ID */\n' +
+    '.ui-tag:hover { filter: brightness(.94); cursor: pointer; } /* BUG: tag has no action */\n' +
+    '.ui-alert { transition: background-color 240ms, color 240ms; }\n' +
+    '\n' +
+    '/* BASE COMPONENT STYLES. Some inconsistencies are intentional. */\n' +
+    '.ui-button { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-height: var(--control-height); padding: .65rem 1.1rem; border: 1px solid transparent; text-decoration: none; font-weight: 700; font-size: .86rem; border-radius: var(--radius-md); transition: background-color var(--motion-fast), transform var(--motion-fast), box-shadow var(--motion-fast); }\n' +
+    '.ui-button { letter-spacing: .005em; padding-inline: 1.25rem; } /* DUPLICATED RULE: audit this. */\n' +
+    '.ui-button--primary { background: #3659d9; color: #ffffff; }\n' +
+    '.ui-button--secondary { background: var(--color-surface); color: var(--color-ink); border-color: var(--color-border); }\n' +
+    '.ui-button--ghost { background: transparent; color: var(--color-ink); }\n' +
+    '.ui-button--danger { background: #b42336; color: #fff; }\n' +
+    '.ui-button--sm { min-height: 2.15rem; padding: .4rem .75rem; font-size: .78rem; }\n' +
+    '.ui-button--lg { min-height: 3.25rem; padding: .85rem 1.4rem; font-size: 1rem; }\n' +
+    '.ui-field { display: flex; flex-direction: column; gap: .4rem; }\n' +
+    '.ui-field label { font-weight: 650; font-size: .88rem; }\n' +
+    '.ui-field input, .ui-field textarea { width: 100%; min-width: 20rem; padding: .7rem .8rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-ink); }\n' +
+    '.ui-field__hint { font-size: .75rem; color: var(--color-muted); }\n' +
+    '.ui-field__actions { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }\n' +
+    '.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n' +
+    '.ui-field--full, .ui-field__actions { grid-column: 1 / -1; }\n' +
+    '.ui-card { display: flex; flex-direction: column; min-width: 22rem; padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface); box-shadow: var(--shadow-card); }\n' +
+    '.ui-card--featured { border-color: var(--color-accent); }\n' +
+    '.ui-card__meta { display: flex; justify-content: space-between; align-items: center; gap: .6rem; margin-bottom: .9rem; color: var(--color-muted); font-size: .7rem; }\n' +
+    '.ui-card h3 { font-size: 1rem; line-height: 1.35; overflow-wrap: anywhere; }\n' +
+    '.ui-card p { color: var(--color-muted); font-size: .82rem; }\n' +
+    '.ui-card > .ui-button { align-self: flex-start; margin-top: auto; }\n' +
+    '.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n' +
+    '.ui-tag { display: inline-flex; align-items: center; min-height: 1.6rem; border-radius: 50px; font-size: .69rem; line-height: 1.2; font-weight: 750; padding: .25rem .65rem; white-space: nowrap; }\n' +
+    '.ui-tag--neutral { background: var(--color-surface-alt); border: 1px solid var(--color-border); color: var(--color-muted); }\n' +
+    '.ui-tag--success { background: var(--color-success-bg); color: var(--color-success); }\n' +
+    '.ui-tag--warning { background: var(--color-warning-bg); color: var(--color-warning); }\n' +
+    '.ui-tag--danger { background: var(--color-danger-bg); color: var(--color-danger); }\n' +
+    '.ui-alert { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem; border-radius: var(--radius-md); border: 1px solid; color: #111827; }\n' +
+    '.ui-alert strong { font-size: .9rem; }\n' +
+    '.ui-alert p { margin: .25rem 0 0; font-size: .83rem; }\n' +
+    '.ui-alert--info { background: var(--color-info-bg); border-color: var(--color-info); }\n' +
+    '.ui-alert--success { background: var(--color-success-bg); border-color: var(--color-success); }\n' +
+    '.ui-alert--warning { background: var(--color-warning-bg); border-color: var(--color-warning); }\n' +
+    '.ui-alert--danger { background: var(--color-danger-bg); border-color: var(--color-danger); }\n' +
+    '.alerts-stack { display: grid; gap: .7rem; margin-bottom: 1.1rem; }\n' +
+    '.ui-alert__dismiss { align-self: start; border: 0; background: transparent; color: inherit; font-size: 1.4rem; line-height: 1; padding: .2rem; }\n' +
+    '.settings-list { display: grid; border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }\n' +
+    '.ui-switch { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem; cursor: pointer; }\n' +
+    '.ui-switch + .ui-switch { border-top: 1px solid var(--color-border); }\n' +
+    '.ui-switch__copy { display: grid; gap: .15rem; }\n' +
+    '.ui-switch__copy strong { font-size: .88rem; }\n' +
+    '.ui-switch__copy small { color: var(--color-muted); }\n' +
+    '.ui-switch input { display: none; } /* BUG: invisible for keyboard and accessibility tree */\n' +
+    '.ui-switch__track { flex: 0 0 2.6rem; width: 2.6rem; height: 1.5rem; background: #adb7c6; border-radius: 2rem; padding: .2rem; transition: background-color var(--motion-fast); }\n' +
+    '.ui-switch__thumb { display: block; width: 1.1rem; height: 1.1rem; background: white; border-radius: 50%; transition: transform var(--motion-fast); }\n' +
+    '.ui-switch input:checked + .ui-switch__track { background: var(--color-accent); }\n' +
+    '.ui-switch input:checked + .ui-switch__track .ui-switch__thumb { transform: translateX(1.1rem); }\n' +
+    '.ui-switch input:disabled + .ui-switch__track { opacity: .4; }\n' +
+    '.ui-dialog { width: min(92vw, 30rem); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.6rem; background: var(--color-surface); color: var(--color-ink); box-shadow: 0 24px 90px rgba(8, 15, 45, .28); }\n' +
+    '.ui-dialog::backdrop { background: rgba(10, 17, 40, .65); backdrop-filter: blur(3px); }\n' +
+    '.ui-dialog__head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }\n' +
+    '.ui-dialog h2 { margin: .8rem 0 .5rem; }\n' +
+    '.ui-dialog p { color: var(--color-muted); }\n' +
+    '.ui-dialog__actions { display: flex; justify-content: flex-end; gap: .5rem; margin-top: 1.6rem; }\n' +
+    '@media (max-width: 720px) { .card-grid, .form-grid { grid-template-columns: 1fr; } }\n'
+  
+      at TestContext.<anonymous> (file:///C:/Users/user/Documents/WebDevelopment/For_V_Practice_6/ARCH06_STUDENTS/project/tests/architecture.test.mjs:53:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '/* INTERACTION STATES: intentionally incomplete and in conflict with base. */\n.ui-button:hover { transform: translateY(-1px); }\n.ui-button--primary:hover { background: var(--color-accent-hover); }\n.ui-button--secondary:hover, .ui-button--ghost:hover { background: var(--color-surface-alt); }\n.ui-button--danger:hover { background: #971d2a; }\n.ui-button:focus { outline: none; } /* BUG: removes visible keyboard focus */\n.ui-button:active { transform: translateY(0); }\n.ui-button:disabled { opacity: .45; pointer-events: none; }\n.ui-field:has(input:invalid) input { border-color: #b42336; background: #fff0f2; } /* BUG: premature invalid state */\n.ui-field:has(input:invalid) .ui-field__hint { color: #b42336; }\n.is-danger { background: #c12236; color: #ffffff; } /* BUG: global class conflicts with tags and alerts */\n:is(.ui-card, #workbench) .ui-tag { padding-inline: 1rem; } /* BUG: :is() inherits high specificity from ID */\n.ui-tag:hover { filter: brightness(.94); cursor: pointer; } /* BUG: tag has no action */\n.ui-alert { transition: background-color 240ms, color 240ms; }\n\n/* BASE COMPONENT STYLES. Some inconsistencies are intentional. */\n.ui-button { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-height: var(--control-height); padding: .65rem 1.1rem; border: 1px solid transparent; text-decoration: none; font-weight: 700; font-size: .86rem; border-radius: var(--radius-md); transition: background-color var(--motion-fast), transform var(--motion-fast), box-shadow var(--motion-fast); }\n.ui-button { letter-spacing: .005em; padding-inline: 1.25rem; } /* DUPLICATED RULE: audit this. */\n.ui-button--primary { background: #3659d9; color: #ffffff; }\n.ui-button--secondary { background: var(--color-surface); color: var(--color-ink); border-color: var(--color-border); }\n.ui-button--ghost { background: transparent; color: var(--color-ink); }\n.ui-button--danger { background: #b42336; color: #fff; }\n.ui-button--sm { min-height: 2.15rem; padding: .4rem .75rem; font-size: .78rem; }\n.ui-button--lg { min-height: 3.25rem; padding: .85rem 1.4rem; font-size: 1rem; }\n.ui-field { display: flex; flex-direction: column; gap: .4rem; }\n.ui-field label { font-weight: 650; font-size: .88rem; }\n.ui-field input, .ui-field textarea { width: 100%; min-width: 20rem; padding: .7rem .8rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-ink); }\n.ui-field__hint { font-size: .75rem; color: var(--color-muted); }\n.ui-field__actions { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }\n.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n.ui-field--full, .ui-field__actions { grid-column: 1 / -1; }\n.ui-card { display: flex; flex-direction: column; min-width: 22rem; padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface); box-shadow: var(--shadow-card); }\n.ui-card--featured { border-color: var(--color-accent); }\n.ui-card__meta { display: flex; justify-content: space-between; align-items: center; gap: .6rem; margin-bottom: .9rem; color: var(--color-muted); font-size: .7rem; }\n.ui-card h3 { font-size: 1rem; line-height: 1.35; overflow-wrap: anywhere; }\n.ui-card p { color: var(--color-muted); font-size: .82rem; }\n.ui-card > .ui-button { align-self: flex-start; margin-top: auto; }\n.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }\n.ui-tag { display: inline-flex; align-items: center; min-height: 1.6rem; border-radius: 50px; font-size: .69rem; line-height: 1.2; font-weight: 750; padding: .25rem .65rem; white-space: nowrap; }\n.ui-tag--neutral { background: var(--color-surface-alt); border: 1px solid var(--color-border); color: var(--color-muted); }\n.ui-tag--success { background: var(--color-success-bg); color: var(--color-success); }\n.ui-tag--warning { background: var(--color-warning-bg); color: var(--color-warning); }\n.ui-tag--danger { background: var(--color-danger-bg); color: var(--color-danger); }\n.ui-alert { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem; border-radius: var(--radius-md); border: 1px solid; color: #111827; }\n.ui-alert strong { font-size: .9rem; }\n.ui-alert p { margin: .25rem 0 0; font-size: .83rem; }\n.ui-alert--info { background: var(--color-info-bg); border-color: var(--color-info); }\n.ui-alert--success { background: var(--color-success-bg); border-color: var(--color-success); }\n.ui-alert--warning { background: var(--color-warning-bg); border-color: var(--color-warning); }\n.ui-alert--danger { background: var(--color-danger-bg); border-color: var(--color-danger); }\n.alerts-stack { display: grid; gap: .7rem; margin-bottom: 1.1rem; }\n.ui-alert__dismiss { align-self: start; border: 0; background: transparent; color: inherit; font-size: 1.4rem; line-height: 1; padding: .2rem; }\n.settings-list { display: grid; border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }\n.ui-switch { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem; cursor: pointer; }\n.ui-switch + .ui-switch { border-top: 1px solid var(--color-border); }\n.ui-switch__copy { display: grid; gap: .15rem; }\n.ui-switch__copy strong { font-size: .88rem; }\n.ui-switch__copy small { color: var(--color-muted); }\n.ui-switch input { display: none; } /* BUG: invisible for keyboard and accessibility tree */\n.ui-switch__track { flex: 0 0 2.6rem; width: 2.6rem; height: 1.5rem; background: #adb7c6; border-radius: 2rem; padding: .2rem; transition: background-color var(--motion-fast); }\n.ui-switch__thumb { display: block; width: 1.1rem; height: 1.1rem; background: white; border-radius: 50%; transition: transform var(--motion-fast); }\n.ui-switch input:checked + .ui-switch__track { background: var(--color-accent); }\n.ui-switch input:checked + .ui-switch__track .ui-switch__thumb { transform: translateX(1.1rem); }\n.ui-switch input:disabled + .ui-switch__track { opacity: .4; }\n.ui-dialog { width: min(92vw, 30rem); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.6rem; background: var(--color-surface); color: var(--color-ink); box-shadow: 0 24px 90px rgba(8, 15, 45, .28); }\n.ui-dialog::backdrop { background: rgba(10, 17, 40, .65); backdrop-filter: blur(3px); }\n.ui-dialog__head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }\n.ui-dialog h2 { margin: .8rem 0 .5rem; }\n.ui-dialog p { color: var(--color-muted); }\n.ui-dialog__actions { display: flex; justify-content: flex-end; gap: .5rem; margin-top: 1.6rem; }\n@media (max-width: 720px) { .card-grid, .form-grid { grid-template-columns: 1fr; } }\n',
+    expected: /:is\([^)]*#[a-z]/i,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at tests\architecture.test.mjs:67:1
+✖ 17 — модификаторы риска не зависят от служебного .is-danger (0.2782ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /class=['"][^'"]*\bis-danger\b/. Input:
+  
+  '<!doctype html>\n' +
+    '<html lang="ru" data-theme="light">\n' +
+    '<head>\n' +
+    '  <meta charset="utf-8">\n' +
+    '  <meta name="viewport" content="width=device-width, initial-scale=1">\n' +
+    '  <meta name="color-scheme" content="light dark">\n' +
+    '  <title>Atlas UI — CSS Architecture Rescue</title>\n' +
+    '  <link rel="stylesheet" href="./css/app.css">\n' +
+    '  <script type="module" src="./js/app.js"></script>\n' +
+    '</head>\n' +
+    '<body>\n' +
+    '  <a class="skip-link" href="#workbench">Перейти к компонентам</a>\n' +
+    '  <header class="site-header">\n' +
+    '    <div class="shell site-header__content">\n' +
+    '      <a href="#top" class="brand" aria-label="Atlas UI, главная"><span class="brand__mark">A</span><span>ATLAS <strong>UI</strong><small>component lab / v0.6</small></span></a>\n' +
+    '      <nav class="nav" aria-label="Главная навигация"><a href="#workbench">Компоненты</a><a href="#incidents">Инциденты</a><a href="#legacy-zone">Legacy</a></nav>\n' +
+    '      <div class="site-header__actions">\n' +
+    '        <button class="ui-button ui-button--ghost ui-button--sm" id="theme-toggle" type="button" aria-pressed="false">🌙 Сменить тему</button>\n' +
+    '        <button class="ui-button ui-button--primary ui-button--sm" id="open-dialog" type="button">Настройки UI ↗</button>\n' +
+    '      </div>\n' +
+    '    </div>\n' +
+    '  </header>\n' +
+    '  <main id="top">\n' +
+    '    <section class="hero shell" aria-labelledby="hero-title">\n' +
+    '      <div class="hero__copy"><span class="eyebrow">LAB / ARCH-07 · FRONTEND ENGINEERING</span>\n' +
+    '        <h1 id="hero-title">Одна библиотека.<br><span>Слишком много конфликтов.</span></h1>\n' +
+    '        <p>После слияния двух команд состояния компонентов ведут себя непредсказуемо. Исследуйте исходный код, исправьте архитектуру и докажите корректность результата.</p>\n' +
+    '        <div class="hero__actions"><a href="#workbench" class="ui-button ui-button--primary">Открыть стенд</a><a href="#incidents" class="ui-button ui-button--secondary">Изучить симптомы</a></div>\n' +
+    '      </div>\n' +
+    '      <div class="hero__panel" aria-label="Сводка инцидента"><span class="eyebrow">INCIDENT SUMMARY</span><div class="hero__signal">CSS <b>↯</b></div><div class="metric-grid"><div><strong>07</strong><small>семейств компонентов</small></div><div><strong>18</strong><small>внедрённых дефектов</small></div><div><strong>06</strong><small>контрольных ширин</small></div></div><p>Каждый симптом должен иметь доказанную причину и регрессионную проверку.</p></div>\n' +
+    '    </section>\n' +
+    '    <div class="shell app-layout">\n' +
+    '      <aside class="sidebar"><div class="sidebar__title">СПРАВОЧНИК ЛАБОРАТОРИИ</div><nav aria-label="Разделы стенда"><a href="#buttons">01 · Кнопки</a><a href="#fields">02 · Поля</a><a href="#cards">03 · Карточки</a><a href="#tags">04 · Теги</a><a href="#alerts">05 · Уведомления</a><a href="#switches">06 · Переключатели</a><a href="#dialogs">07 · Диалоги</a></nav><p class="sidebar__hint">Фиксируйте фактические стили через DevTools → Computed / Layers.</p></aside>\n' +
+    '      <div class="workbench" id="workbench">\n' +
+    '        <section class="lab-section" id="buttons" aria-labelledby="buttons-title"><div class="section-heading"><div><span class="eyebrow">COMPONENT 01</span><h2 id="buttons-title">Кнопки и варианты</h2></div><span class="ui-tag ui-tag--neutral">4 варианта · 3 размера</span></div><p class="section-intro">Проверьте приоритет, hover, focus-visible, active и disabled для каждого варианта.</p>\n' +
+    '          <div class="sample-panel"><div class="sample-row"><button class="ui-button ui-button--primary" type="button">Основное действие</button><button class="ui-button ui-button--secondary" type="button">Вторичное</button><button class="ui-button ui-button--ghost" type="button">Тихое действие</button><button class="ui-button ui-button--danger is-danger" type="button">Удалить</button></div><div class="sample-row"><button class="ui-button ui-button--primary ui-button--sm" type="button">Маленькая</button><button class="ui-button ui-button--primary" type="button">Обычная</button><button class="ui-button ui-button--primary ui-button--lg" type="button">Большая</button><button class="ui-button ui-button--primary" disabled type="button">Недоступна</button></div></div>\n' +
+    '        </section>\n' +
+    '        <section class="lab-section" id="fields" aria-labelledby="fields-title"><div class="section-heading"><div><span class="eyebrow">COMPONENT 02</span><h2 id="fields-title">Поля и валидация</h2></div><span class="ui-tag ui-tag--warning">сложное поведение</span></div><p class="section-intro">Сообщение об ошибке не должно появляться до взаимодействия пользователя. Фокус должен сохраняться во всех темах.</p><form class="form-grid" id="demo-form" novalidate><div class="ui-field"><label for="user-name">Имя сотрудника <span aria-hidden="true">*</span></label><input type="text" id="user-name" name="name" required placeholder="Например, Мария Орлова"><span class="ui-field__hint" id="name-hint">Укажите имя для сохранения изменений</span></div><div class="ui-field"><label for="user-email">Корпоративная почта <span aria-hidden="true">*</span></label><input type="email" id="user-email" name="email" required placeholder="name@company.ru" aria-describedby="email-hint"><span class="ui-field__hint" id="email-hint">Мы отправим подтверждение на эту почту</span></div><div class="ui-field ui-field--full"><label for="user-note">Комментарий</label><textarea id="user-note" rows="3" placeholder="Сообщение проектной команде"></textarea></div><div class="ui-field__actions"><button class="ui-button ui-button--primary" type="submit">Проверить форму</button><span id="form-feedback" role="status" aria-live="polite"></span></div></form></section>\n' +
+    '        <section class="lab-section" id="cards" aria-labelledby="cards-title"><div class="section-heading"><div><span class="eyebrow">COMPONENT 03</span><h2 id="cards-title">Карточки в контейнере</h2></div><span class="ui-tag ui-tag--neutral">длинный контент</span></div><p class="section-intro">Компонент должен выдерживать вложенные элементы, длинные заголовки и ширину 320 px.</p><div class="card-grid"><article class="ui-card"><div class="ui-card__meta"><span class="ui-tag ui-tag--success">Работает</span><span>№ 01</span></div><h3>Локальные переменные</h3><p>Карточка использует значения из семантических токенов и не зависит от оформления родителя.</p><a href="#tags" class="ui-button ui-button--secondary ui-button--sm">Смотреть теги</a></article><article class="ui-card ui-card--featured"><div class="ui-card__meta"><span class="ui-tag ui-tag--warning">Ревью</span><span>№ 02</span></div><h3>Очень длинное название компонента, которое не должно ломать адаптивную сетку</h3><p>При увеличении текста, изменении темы и ширины блока элементы должны переноситься без горизонтальной прокрутки.</p><button class="ui-button ui-button--ghost ui-button--sm" type="button">Подробнее</button></article><article class="ui-card"><div class="ui-card__meta"><span class="ui-tag ui-tag--danger is-danger">Риск</span><span>№ 03</span></div><h3>Вложенное уведомление</h3><p>Проверка конфликта между стилями карточки и вложенного уведомления.</p><div class="ui-alert ui-alert--warning" role="status"><strong>Внимание</strong><p>Вложенный текст не должен наследовать чужие размеры.</p></div></article></div></section>\n' +
+    '        <section class="lab-section" id="tags" aria-labelledby="tags-title"><div class="section-heading"><div><span class="eyebrow">COMPONENT 04</span><h2 id="tags-title">Метки статуса</h2></div><span class="ui-tag ui-tag--neutral">неинтерактивные</span></div><div class="sample-panel"><div class="sample-row"><span class="ui-tag ui-tag--neutral">Черновик</span><span class="ui-tag ui-tag--success">Одобрено</span><span class="ui-tag ui-tag--warning">На проверке</span><span class="ui-tag ui-tag--danger is-danger">Отклонено</span></div><p class="mini-note">Метки не являются кнопками: не добавляйте им ложных интерактивных состояний.</p></div></section>\n' +
+    '        <section class="lab-section" id="alerts" aria-labelledby="alerts-title"><div class="section-heading"><div><span class="eyebrow">COMPONENT 05</span><h2 id="alerts-title">Уведомления</h2></div><span class="ui-tag ui-tag--neutral">4 роли</span></div><div class="alerts-stack"><div class="ui-alert ui-alert--info" role="status"><div><strong>Информация</strong><p>Новая версия элементов доступна в тестовой среде.</p></div><button class="ui-alert__dismiss" type="button" aria-label="Закрыть уведомление">×</button></div><div class="ui-alert ui-alert--success" role="status"><div><strong>Успешно</strong><p>Изменения сохранены в рабочем пространстве.</p></div><button class="ui-alert__dismiss" type="button" aria-label="Закрыть уведомление">×</button></div><div class="ui-alert ui-alert--warning" role="status"><div><strong>Предупреждение</strong><p>Остались неподтверждённые настройки интерфейса.</p></div><button class="ui-alert__dismiss" type="button" aria-label="Закрыть уведомление">×</button></div><div class="ui-alert ui-alert--danger is-danger" role="alert"><div><strong>Ошибка</strong><p>Каскад переопределил ожидаемое состояние.</p></div><button class="ui-alert__dismiss" type="button" aria-label="Закрыть уведомление">×</button></div></div><button id="restore-alerts" class="ui-button ui-button--secondary ui-button--sm" type="button">Восстановить уведомления</button></section>\n' +
+    '        <section class="lab-section" id="switches" aria-labelledby="switches-title"><div class="section-heading"><div><span class="eyebrow">COMPONENT 06</span><h2 id="switches-title">Переключатели</h2></div><span class="ui-tag ui-tag--warning">клавиатура</span></div><div class="settings-list"><label class="ui-switch"><span class="ui-switch__copy"><strong>Системные уведомления</strong><small>Включить обновления о критических событиях</small></span><input id="switch-notifications" type="checkbox" checked><span class="ui-switch__track" aria-hidden="true"><span class="ui-switch__thumb"></span></span></label><label class="ui-switch"><span class="ui-switch__copy"><strong>Автосохранение изменений</strong><small>Применять настройки без подтверждения</small></span><input id="switch-autosave" type="checkbox"><span class="ui-switch__track" aria-hid'... 3497 more characters
+  
+      at TestContext.<anonymous> (file:///C:/Users/user/Documents/WebDevelopment/For_V_Practice_6/ARCH06_STUDENTS/project/tests/architecture.test.mjs:68:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '<!doctype html>\n<html lang="ru" data-theme="light">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1">\n  <meta name="color-scheme" content="light dark">\n  <title>Atlas UI — CSS Architecture Rescue</title>\n  <link rel="stylesheet" href="./css/app.css">\n  <script type="module" src="./js/app.js"></script>\n</head>\n<body>\n  <a class="skip-link" href="#workbench">Перейти к компонентам</a>\n  <header class="site-header">\n    <div class="shell site-header__content">\n      <a href="#top" class="brand" aria-label="Atlas UI, главная"><span class="brand__mark">A</span><span>ATLAS <strong>UI</strong><small>component lab / v0.6</small></span></a>\n      <nav class="nav" aria-label="Главная навигация"><a href="#workbench">Компоненты</a><a href="#incidents">Инциденты</a><a href="#legacy-zone">Legacy</a></nav>\n      <div class="site-header__actions">\n        <button class="ui-button ui-button--ghost ui-button--sm" id="theme-toggle" type="button" aria-pressed="false">🌙 Сменить тему</button>\n        <button class="ui-button ui-button--primary ui-button--sm" id="open-dialog" type="button">Настройки UI ↗</button>\n      </div>\n    </div>\n  </header>\n  <main id="top">\n    <section class="hero shell" aria-labelledby="hero-title">\n      <div class="hero__copy"><span class="eyebrow">LAB / ARCH-07 · FRONTEND ENGINEERING</span>\n        <h1 id="hero-title">Одна библиотека.<br><span>Слишком много конфликтов.</span></h1>\n        <p>После слияния двух команд состояния компонентов ведут себя непредсказуемо. Исследуйте исходный код, исправьте архитектуру и докажите корректность результата.</p>\n        <div class="hero__actions"><a href="#workbench" class="ui-button ui-button--primary">Открыть стенд</a><a href="#incidents" class="ui-button ui-button--secondary">Изучить симптомы</a></div>\n      </div>\n      <div class="hero__panel" aria-label="Сводка инцидента"><span class="eyebrow">INCIDENT SUMMARY</span><div class="hero__signal">CSS <b>↯</b></div><div class="metric-grid"><div><strong>07</strong><small>семейств компонентов</small></div><div><strong>18</strong><small>внедрённых дефектов</small></div><div><strong>06</strong><small>контрольных ширин</small></div></div><p>Каждый симптом должен иметь доказанную причину и регрессионную проверку.</p></div>\n    </section>\n    <div class="shell app-layout">\n      <aside class="sidebar"><div class="sidebar__title">СПРАВОЧНИК ЛАБОРАТОРИИ</div><nav aria-label="Разделы стенда"><a href="#buttons">01 · Кнопки</a><a href="#fields">02 · Поля</a><a href="#cards">03 · Карточки</a><a href="#tags">04 · Теги</a><a href="#alerts">05 · Уведомления</a><a href="#switches">06 · Переключатели</a><a href="#dialogs">07 · Диалоги</a></nav><p class="sidebar__hint">Фиксируйте фактические стили через DevTools → Computed / Layers.</p></aside>\n      <div class="workbench" id="workbench">\n        <section class="lab-section" id="buttons" aria-labelledby="buttons-title"><div class="section-heading"><div><span class="eyebrow">COMPONENT 01</span><h2 id="buttons-title">Кнопки и варианты</h2></div><span class="ui-tag ui-tag--neutral">4 варианта · 3 размера</span></div><p class="section-intro">Проверьте приоритет, hover, focus-visible, active и disabled для каждого варианта.</p>\n          <div class="sample-panel"><div class="sample-row"><button class="ui-button ui-button--primary" type="button">Основное действие</button><button class="ui-button ui-button--secondary" type="button">Вторичное</button><button class="ui-button ui-button--ghost" type="button">Тихое действие</button><button class="ui-button ui-button--danger is-danger" type="button">Удалить</button></div><div class="sample-row"><button class="ui-button ui-button--primary ui-button--sm" type="button">Маленькая</button><button class="ui-button ui-button--primary" type="button">Обычная</button><button class="ui-button ui-button--primary ui-button--lg" type="button">Большая</button><button class="ui-button ui-button--primary" disabled type="button">Недоступна</button></div></div>\n        </section>\n        <section class="lab-section" id="fields" aria-labelledby="fields-title"><div class="section-heading"><div><span class="eyebrow">COMPONENT 02</span><h2 id="fields-title">Поля и валидация</h2></div><span class="ui-tag ui-tag--warning">сложное поведение</span></div><p class="section-intro">Сообщение об ошибке не должно появляться до взаимодействия пользователя. Фокус должен сохраняться во всех темах.</p><form class="form-grid" id="demo-form" novalidate><div class="ui-field"><label for="user-name">Имя сотрудника <span aria-hidden="true">*</span></label><input type="text" id="user-name" name="name" required placeholder="Например, Мария Орлова"><span class="ui-field__hint" id="name-hint">Укажите имя для сохранения изменений</span></div><div class="ui-field"><label for="user-email">Корпоративная почта <span aria-hidden="true">*</span></label><input type="email" id="user-email" name="email" required placeholder="name@company.ru" aria-describedby="email-hint"><span class="ui-field__hint" id="email-hint">Мы отправим подтверждение на эту почту</span></div><div class="ui-field ui-field--full"><label for="user-note">Комментарий</label><textarea id="user-note" rows="3" placeholder="Сообщение проектной команде"></textarea></div><div class="ui-field__actions"><button class="ui-button ui-button--primary" type="submit">Проверить форму</button><span id="form-feedback" role="status" aria-live="polite"></span></div></form></section>\n        <section class="lab-section" id="cards" aria-labelledby="cards-title"><div class="section-heading"><div><span class="eyebrow">COMPONENT 03</span><h2 id="cards-title">Карточки в контейнере</h2></div><span class="ui-tag ui-tag--neutral">длинный контент</span></div><p class="section-intro">Компонент должен выдерживать вложенные элементы, длинные заголовки и ширину 320 px.</p><div class="card-grid"><article class="ui-card"><div class="ui-card__meta"><span class="ui-tag ui-tag--success">Работает</span><span>№ 01</span></div><h3>Локальные переменные</h3><p>Карточка использует значения из семантических токенов и не зависит от оформления родителя.</p><a href="#tags" class="ui-button ui-button--secondary ui-button--sm">Смотреть теги</a></article><article class="ui-card ui-card--featured"><div class="ui-card__meta"><span class="ui-tag ui-tag--warning">Ревью</span><span>№ 02</span></div><h3>Очень длинное название компонента, которое не должно ломать адаптивную сетку</h3><p>При увеличении текста, изменении темы и ширины блока элементы должны переноситься без горизонтальной прокрутки.</p><button class="ui-button ui-button--ghost ui-button--sm" type="button">Подробнее</button></article><article class="ui-card"><div class="ui-card__meta"><span class="ui-tag ui-tag--danger is-danger">Риск</span><span>№ 03</span></div><h3>Вложенное уведомление</h3><p>Проверка конфликта между стилями карточки и вложенного уведомления.</p><div class="ui-alert ui-alert--warning" role="status"><strong>Внимание</strong><p>Вложенный текст не должен наследовать чужие размеры.</p></div></article></div></section>\n        <section class="lab-section" id="tags" aria-labelledby="tags-title"><div class="section-heading"><div><span class="eyebrow">COMPONENT 04</span><h2 id="tags-title">Метки статуса</h2></div><span class="ui-tag ui-tag--neutral">неинтерактивные</span></div><div class="sample-panel"><div class="sample-row"><span class="ui-tag ui-tag--neutral">Черновик</span><span class="ui-tag ui-tag--success">Одобрено</span><span class="ui-tag ui-tag--warning">На проверке</span><span class="ui-tag ui-tag--danger is-danger">Отклонено</span></div><p class="mini-note">Метки не являются кнопками: не добавляйте им ложных интерактивных состояний.</p></div></section>\n        <section class="lab-section" id="alerts" aria-labelledby="alerts-title"><div class="section-heading"><div><span class="eyebrow">COMPONENT 05</span><h2 id="alerts-title">Уведомления</h2></div><span class="ui-tag ui-tag--neutral">4 роли</span></div><div class="alerts-stack"><div class="ui-alert ui-alert--info" role="status"><div><strong>Информация</strong><p>Новая версия элементов доступна в тестовой среде.</p></div><button class="ui-alert__dismiss" type="button" aria-label="Закрыть уведомление">×</button></div><div class="ui-alert ui-alert--success" role="status"><div><strong>Успешно</strong><p>Изменения сохранены в рабочем пространстве.</p></div><button class="ui-alert__dismiss" type="button" aria-label="Закрыть уведомление">×</button></div><div class="ui-alert ui-alert--warning" role="status"><div><strong>Предупреждение</strong><p>Остались неподтверждённые настройки интерфейса.</p></div><button class="ui-alert__dismiss" type="button" aria-label="Закрыть уведомление">×</button></div><div class="ui-alert ui-alert--danger is-danger" role="alert"><div><strong>Ошибка</strong><p>Каскад переопределил ожидаемое состояние.</p></div><button class="ui-alert__dismiss" type="button" aria-label="Закрыть уведомление">×</button></div></div><button id="restore-alerts" class="ui-button ui-button--secondary ui-button--sm" type="button">Восстановить уведомления</button></section>\n        <section class="lab-section" id="switches" aria-labelledby="switches-title"><div class="section-heading"><div><span class="eyebrow">COMPONENT 06</span><h2 id="switches-title">Переключатели</h2></div><span class="ui-tag ui-tag--warning">клавиатура</span></div><div class="settings-list"><label class="ui-switch"><span class="ui-switch__copy"><strong>Системные уведомления</strong><small>Включить обновления о критических событиях</small></span><input id="switch-notifications" type="checkbox" checked><span class="ui-switch__track" aria-hidden="true"><span class="ui-switch__thumb"></span></span></label><label class="ui-switch"><span class="ui-switch__copy"><strong>Автосохранение изменений</strong><small>Применять настройки без подтверждения</small></span><input id="switch-autosave" type="checkbox"><span class="ui-switch__track" aria-hid'... 3497 more characters,
+    expected: /class=['"][^'"]*\bis-danger\b/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at tests\architecture.test.mjs:70:1
+✖ 18 — провайдерские селекторы не нацелены на библиотеку и глобальные html-элементы (0.1678ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /(^|\n)\s*(?:#workbench|button\s*\{|input\s*\{|\.ui-card|\.ui-button)/m. Input:
+  
+  '/* VENDOR STYLESHEET — inherited from a contractor; cannot be deleted. */\n' +
+    'button { border-radius: 0; }\n' +
+    '#workbench .ui-button { background: #2939a8; padding: .45rem .65rem; }\n' +
+    '#workbench .ui-button.is-danger { background: #a41e24 !important; }\n' +
+    '.is-danger { color: #fff; }\n' +
+    '.ui-card p { font-size: .69rem; }\n' +
+    'input { outline: none; }\n' +
+    '.legacy-widget { font-family: Georgia, serif; border: 2px dashed #8492ac; }\n' +
+    '.legacy-action { border: 0; background: #243b6b; color: white; padding: .55rem .9rem; font: inherit; }\n'
+  
+      at TestContext.<anonymous> (file:///C:/Users/user/Documents/WebDevelopment/For_V_Practice_6/ARCH06_STUDENTS/project/tests/architecture.test.mjs:71:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '/* VENDOR STYLESHEET — inherited from a contractor; cannot be deleted. */\nbutton { border-radius: 0; }\n#workbench .ui-button { background: #2939a8; padding: .45rem .65rem; }\n#workbench .ui-button.is-danger { background: #a41e24 !important; }\n.is-danger { color: #fff; }\n.ui-card p { font-size: .69rem; }\ninput { outline: none; }\n.legacy-widget { font-family: Georgia, serif; border: 2px dashed #8492ac; }\n.legacy-action { border: 0; background: #243b6b; color: white; padding: .55rem .9rem; font: inherit; }\n',
+    expected: /(^|\n)\s*(?:#workbench|button\s*\{|input\s*\{|\.ui-card|\.ui-button)/m,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }

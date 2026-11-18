@@ -1,0 +1,847 @@
+{
+  "browser": "157.0.8103.79",
+  "widths": [
+    {
+      "width": 320,
+      "theme": "light",
+      "scrollWidth": 320,
+      "cardWidth": 264
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "scrollWidth": 320,
+      "cardWidth": 264
+    },
+    {
+      "width": 375,
+      "theme": "light",
+      "scrollWidth": 375,
+      "cardWidth": 319
+    },
+    {
+      "width": 375,
+      "theme": "dark",
+      "scrollWidth": 375,
+      "cardWidth": 319
+    },
+    {
+      "width": 768,
+      "theme": "light",
+      "scrollWidth": 768,
+      "cardWidth": 329
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "scrollWidth": 768,
+      "cardWidth": 329
+    },
+    {
+      "width": 1024,
+      "theme": "light",
+      "scrollWidth": 1024,
+      "cardWidth": 330
+    },
+    {
+      "width": 1024,
+      "theme": "dark",
+      "scrollWidth": 1024,
+      "cardWidth": 330
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "scrollWidth": 1440,
+      "cardWidth": 438
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "scrollWidth": 1440,
+      "cardWidth": 438
+    },
+    {
+      "width": 1920,
+      "theme": "light",
+      "scrollWidth": 1920,
+      "cardWidth": 438
+    },
+    {
+      "width": 1920,
+      "theme": "dark",
+      "scrollWidth": 1920,
+      "cardWidth": 438
+    }
+  ],
+  "styles": {
+    "dark": {
+      "primary": {
+        "selector": "#buttons .ui-button--primary",
+        "computed": {
+          "background-color": "rgb(144, 166, 255)",
+          "border-top-left-radius": "12px",
+          "padding-left": "20px"
+        },
+        "rules": [
+          {
+            "origin": "user-agent",
+            "layer": "user-agent",
+            "selector": "button",
+            "declarations": [
+              {
+                "name": "background-color",
+                "value": "buttonface",
+                "important": false
+              }
+            ]
+          },
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-button",
+            "declarations": [
+              {
+                "name": "padding-left",
+                "value": "1.25rem",
+                "important": false
+              },
+              {
+                "name": "border-top-left-radius",
+                "value": "",
+                "important": false
+              },
+              {
+                "name": "background-color",
+                "value": "var(--_button-bg)",
+                "important": false
+              }
+            ]
+          }
+        ]
+      },
+      "dangerButton": {
+        "selector": "#buttons .ui-button--danger",
+        "computed": {
+          "color": "rgb(64, 20, 30)",
+          "background-color": "rgb(255, 157, 171)",
+          "border-top-left-radius": "12px"
+        },
+        "rules": [
+          {
+            "origin": "user-agent",
+            "layer": "user-agent",
+            "selector": "button",
+            "declarations": [
+              {
+                "name": "color",
+                "value": "fieldtext",
+                "important": false
+              }
+            ]
+          },
+          {
+            "origin": "user-agent",
+            "layer": "user-agent",
+            "selector": "button",
+            "declarations": [
+              {
+                "name": "background-color",
+                "value": "buttonface",
+                "important": false
+              },
+              {
+                "name": "color",
+                "value": "buttontext",
+                "important": false
+              }
+            ]
+          },
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-button",
+            "declarations": [
+              {
+                "name": "border-top-left-radius",
+                "value": "",
+                "important": false
+              },
+              {
+                "name": "background-color",
+                "value": "var(--_button-bg)",
+                "important": false
+              },
+              {
+                "name": "color",
+                "value": "var(--_button-ink)",
+                "important": false
+              }
+            ]
+          }
+        ]
+      },
+      "nestedDangerTag": {
+        "selector": "#cards .ui-tag--danger",
+        "computed": {
+          "color": "rgb(255, 157, 171)",
+          "background-color": "rgb(87, 38, 53)",
+          "cursor": "auto",
+          "padding-left": "10.4px"
+        },
+        "rules": [
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-tag",
+            "declarations": [
+              {
+                "name": "padding-left",
+                "value": "0.65rem",
+                "important": false
+              },
+              {
+                "name": "background-color",
+                "value": "",
+                "important": false
+              },
+              {
+                "name": "color",
+                "value": "var(--color-muted)",
+                "important": false
+              }
+            ]
+          },
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-tag--danger",
+            "declarations": [
+              {
+                "name": "background-color",
+                "value": "",
+                "important": false
+              },
+              {
+                "name": "color",
+                "value": "var(--color-danger)",
+                "important": false
+              }
+            ]
+          }
+        ]
+      },
+      "email": {
+        "selector": "#user-email",
+        "computed": {
+          "background-color": "rgb(24, 36, 61)",
+          "border-top-color": "rgb(130, 148, 182)",
+          "min-width": "0px",
+          "outline-style": "none"
+        },
+        "rules": [
+          {
+            "origin": "user-agent",
+            "layer": "user-agent",
+            "selector": "input",
+            "declarations": [
+              {
+                "name": "border-top-color",
+                "value": "light-dark(rgb(118, 118, 118), rgb(133, 133, 133))",
+                "important": false
+              },
+              {
+                "name": "background-color",
+                "value": "field",
+                "important": false
+              }
+            ]
+          },
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-field > :where(input, textarea)",
+            "declarations": [
+              {
+                "name": "border-top-color",
+                "value": "",
+                "important": false
+              },
+              {
+                "name": "background-color",
+                "value": "",
+                "important": false
+              }
+            ]
+          }
+        ]
+      },
+      "nestedAlertText": {
+        "selector": "#cards .ui-alert p",
+        "computed": {
+          "color": "rgb(255, 224, 163)",
+          "font-size": "13.28px"
+        },
+        "rules": [
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-alert__message",
+            "declarations": [
+              {
+                "name": "font-size",
+                "value": "0.83rem",
+                "important": false
+              }
+            ]
+          }
+        ]
+      },
+      "card": {
+        "selector": "#cards .ui-card--featured",
+        "computed": {
+          "border-top-color": "rgb(144, 166, 255)",
+          "min-width": "0px"
+        },
+        "rules": [
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-card",
+            "declarations": [
+              {
+                "name": "border-top-color",
+                "value": "",
+                "important": false
+              }
+            ]
+          },
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-card--featured",
+            "declarations": [
+              {
+                "name": "border-top-color",
+                "value": "",
+                "important": false
+              }
+            ]
+          }
+        ]
+      },
+      "darkWarning": {
+        "selector": ".alerts-stack .ui-alert--warning",
+        "computed": {
+          "color": "rgb(255, 224, 163)",
+          "background-color": "rgb(87, 66, 35)"
+        },
+        "rules": [
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-alert",
+            "declarations": [
+              {
+                "name": "background-color",
+                "value": "",
+                "important": false
+              },
+              {
+                "name": "color",
+                "value": "var(--_alert-ink)",
+                "important": false
+              }
+            ]
+          }
+        ]
+      },
+      "switch": {
+        "selector": "#switch-autosave",
+        "computed": {
+          "position": "absolute",
+          "display": "block"
+        },
+        "rules": [
+          {
+            "origin": "user-agent",
+            "layer": "user-agent",
+            "selector": "input",
+            "declarations": [
+              {
+                "name": "display",
+                "value": "inline-block",
+                "important": false
+              }
+            ]
+          },
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-switch input",
+            "declarations": [
+              {
+                "name": "position",
+                "value": "absolute",
+                "important": false
+              }
+            ]
+          }
+        ]
+      },
+      "vendor": {
+        "selector": ".legacy-action",
+        "computed": {
+          "background-color": "rgb(36, 59, 107)",
+          "border-top-left-radius": "0px"
+        },
+        "rules": [
+          {
+            "origin": "user-agent",
+            "layer": "user-agent",
+            "selector": "button",
+            "declarations": [
+              {
+                "name": "background-color",
+                "value": "buttonface",
+                "important": false
+              }
+            ]
+          },
+          {
+            "origin": "regular",
+            "layer": "legacy.vendor-v2",
+            "file": "legacy-v2.css",
+            "selector": ":where(.legacy-widget) .legacy-action",
+            "declarations": [
+              {
+                "name": "border-top-left-radius",
+                "value": "0px",
+                "important": false
+              }
+            ]
+          },
+          {
+            "origin": "regular",
+            "layer": "legacy",
+            "file": "legacy.css",
+            "selector": ":where(.legacy-widget) .legacy-action",
+            "declarations": [
+              {
+                "name": "background-color",
+                "value": "rgb(36, 59, 107)",
+                "important": false
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "light": {
+      "primary": {
+        "selector": "#buttons .ui-button--primary",
+        "computed": {
+          "background-color": "rgb(54, 89, 217)",
+          "border-top-left-radius": "12px",
+          "padding-left": "20px"
+        },
+        "rules": [
+          {
+            "origin": "user-agent",
+            "layer": "user-agent",
+            "selector": "button",
+            "declarations": [
+              {
+                "name": "background-color",
+                "value": "buttonface",
+                "important": false
+              }
+            ]
+          },
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-button",
+            "declarations": [
+              {
+                "name": "padding-left",
+                "value": "1.25rem",
+                "important": false
+              },
+              {
+                "name": "border-top-left-radius",
+                "value": "",
+                "important": false
+              },
+              {
+                "name": "background-color",
+                "value": "var(--_button-bg)",
+                "important": false
+              }
+            ]
+          }
+        ]
+      },
+      "dangerButton": {
+        "selector": "#buttons .ui-button--danger",
+        "computed": {
+          "color": "rgb(255, 255, 255)",
+          "background-color": "rgb(187, 40, 58)",
+          "border-top-left-radius": "12px"
+        },
+        "rules": [
+          {
+            "origin": "user-agent",
+            "layer": "user-agent",
+            "selector": "button",
+            "declarations": [
+              {
+                "name": "color",
+                "value": "fieldtext",
+                "important": false
+              }
+            ]
+          },
+          {
+            "origin": "user-agent",
+            "layer": "user-agent",
+            "selector": "button",
+            "declarations": [
+              {
+                "name": "background-color",
+                "value": "buttonface",
+                "important": false
+              },
+              {
+                "name": "color",
+                "value": "buttontext",
+                "important": false
+              }
+            ]
+          },
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-button",
+            "declarations": [
+              {
+                "name": "border-top-left-radius",
+                "value": "",
+                "important": false
+              },
+              {
+                "name": "background-color",
+                "value": "var(--_button-bg)",
+                "important": false
+              },
+              {
+                "name": "color",
+                "value": "var(--_button-ink)",
+                "important": false
+              }
+            ]
+          }
+        ]
+      },
+      "nestedDangerTag": {
+        "selector": "#cards .ui-tag--danger",
+        "computed": {
+          "color": "rgb(187, 40, 58)",
+          "background-color": "rgb(255, 240, 242)",
+          "cursor": "auto",
+          "padding-left": "10.4px"
+        },
+        "rules": [
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-tag",
+            "declarations": [
+              {
+                "name": "padding-left",
+                "value": "0.65rem",
+                "important": false
+              },
+              {
+                "name": "background-color",
+                "value": "",
+                "important": false
+              },
+              {
+                "name": "color",
+                "value": "var(--color-muted)",
+                "important": false
+              }
+            ]
+          },
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-tag--danger",
+            "declarations": [
+              {
+                "name": "background-color",
+                "value": "",
+                "important": false
+              },
+              {
+                "name": "color",
+                "value": "var(--color-danger)",
+                "important": false
+              }
+            ]
+          }
+        ]
+      },
+      "email": {
+        "selector": "#user-email",
+        "computed": {
+          "background-color": "rgb(255, 255, 255)",
+          "border-top-color": "rgb(124, 138, 165)",
+          "min-width": "0px",
+          "outline-style": "none"
+        },
+        "rules": [
+          {
+            "origin": "user-agent",
+            "layer": "user-agent",
+            "selector": "input",
+            "declarations": [
+              {
+                "name": "border-top-color",
+                "value": "light-dark(rgb(118, 118, 118), rgb(133, 133, 133))",
+                "important": false
+              },
+              {
+                "name": "background-color",
+                "value": "field",
+                "important": false
+              }
+            ]
+          },
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-field > :where(input, textarea)",
+            "declarations": [
+              {
+                "name": "border-top-color",
+                "value": "",
+                "important": false
+              },
+              {
+                "name": "background-color",
+                "value": "",
+                "important": false
+              }
+            ]
+          }
+        ]
+      },
+      "nestedAlertText": {
+        "selector": "#cards .ui-alert p",
+        "computed": {
+          "color": "rgb(133, 80, 20)",
+          "font-size": "13.28px"
+        },
+        "rules": [
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-alert__message",
+            "declarations": [
+              {
+                "name": "font-size",
+                "value": "0.83rem",
+                "important": false
+              }
+            ]
+          }
+        ]
+      },
+      "card": {
+        "selector": "#cards .ui-card--featured",
+        "computed": {
+          "border-top-color": "rgb(54, 89, 217)",
+          "min-width": "0px"
+        },
+        "rules": [
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-card",
+            "declarations": [
+              {
+                "name": "border-top-color",
+                "value": "",
+                "important": false
+              }
+            ]
+          },
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-card--featured",
+            "declarations": [
+              {
+                "name": "border-top-color",
+                "value": "",
+                "important": false
+              }
+            ]
+          }
+        ]
+      },
+      "darkWarning": {
+        "selector": ".alerts-stack .ui-alert--warning",
+        "computed": {
+          "color": "rgb(133, 80, 20)",
+          "background-color": "rgb(255, 245, 221)"
+        },
+        "rules": [
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-alert",
+            "declarations": [
+              {
+                "name": "background-color",
+                "value": "",
+                "important": false
+              },
+              {
+                "name": "color",
+                "value": "var(--_alert-ink)",
+                "important": false
+              }
+            ]
+          }
+        ]
+      },
+      "switch": {
+        "selector": "#switch-autosave",
+        "computed": {
+          "position": "absolute",
+          "display": "block"
+        },
+        "rules": [
+          {
+            "origin": "user-agent",
+            "layer": "user-agent",
+            "selector": "input",
+            "declarations": [
+              {
+                "name": "display",
+                "value": "inline-block",
+                "important": false
+              }
+            ]
+          },
+          {
+            "origin": "regular",
+            "layer": "components",
+            "file": "components.css",
+            "selector": ".ui-switch input",
+            "declarations": [
+              {
+                "name": "position",
+                "value": "absolute",
+                "important": false
+              }
+            ]
+          }
+        ]
+      },
+      "vendor": {
+        "selector": ".legacy-action",
+        "computed": {
+          "background-color": "rgb(36, 59, 107)",
+          "border-top-left-radius": "0px"
+        },
+        "rules": [
+          {
+            "origin": "user-agent",
+            "layer": "user-agent",
+            "selector": "button",
+            "declarations": [
+              {
+                "name": "background-color",
+                "value": "buttonface",
+                "important": false
+              }
+            ]
+          },
+          {
+            "origin": "regular",
+            "layer": "legacy.vendor-v2",
+            "file": "legacy-v2.css",
+            "selector": ":where(.legacy-widget) .legacy-action",
+            "declarations": [
+              {
+                "name": "border-top-left-radius",
+                "value": "0px",
+                "important": false
+              }
+            ]
+          },
+          {
+            "origin": "regular",
+            "layer": "legacy",
+            "file": "legacy.css",
+            "selector": ":where(.legacy-widget) .legacy-action",
+            "declarations": [
+              {
+                "name": "background-color",
+                "value": "rgb(36, 59, 107)",
+                "important": false
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "interactions": {
+    "fieldFocus": "solid",
+    "emailAfterBlur": {
+      "invalid": "true",
+      "border": "rgb(255, 157, 171)"
+    },
+    "emailAfterEdit": "false",
+    "switch": {
+      "focused": true,
+      "checked": true,
+      "trackOutline": "solid"
+    },
+    "alertsAfterDismiss": 3,
+    "alertsAfterRestore": 4,
+    "modal": {
+      "open": true,
+      "modal": true,
+      "active": "dialog-team"
+    },
+    "escape": {
+      "open": false,
+      "active": "open-dialog"
+    }
+  }
+}

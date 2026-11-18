@@ -1,0 +1,49 @@
+﻿Компонент;Вариант;Состояние;Тема;Ширина_px;Ожидаемое поведение;Факт_до;Факт_после;Статус_OK_FAIL;Доказательство
+button;primary;default;light;1440;Фон из --color-accent и скругление 12 px;Фон #2939a8, радиус 0px;Фон #3659d9, радиус 12px;OK;browser-matrix.txt#M01
+button;primary;focus-visible;dark;375;Tab даёт видимое кольцо фокуса;Контур none;Контур solid;OK;browser-matrix.txt#M02
+button;danger;hover;light;768;Hover меняет фон danger;#a41e24 → #a41e24;#bb283a → #a22132;OK;browser-matrix.txt#M03
+button;secondary;disabled;dark;320;Нативный disabled и отсутствие реакции на мышь;Нет образца secondary:disabled;Родной disabled, фокус false, фон #202e4a;OK;browser-matrix.txt#M04
+field;email;untouched-invalid;light;1440;Нет aria-invalid и ошибочного фона;Фон #fff0f2, aria-invalid нет;Фон #ffffff, aria-invalid нет;OK;browser-matrix.txt#M05
+field;email;invalid-after-blur;dark;375;aria-invalid=true и связанное видимое сообщение;aria-invalid true, сообщение отсутствует;aria-invalid true, сообщение видно;OK;browser-matrix.txt#M06
+card;featured;long-text;light;320;Заголовок переносится и карточка помещается;Карточка 352 px, сетка 264 px, заголовок 65 px;Карточка 264 px, сетка 264 px, заголовок 86 px;OK;browser-matrix.txt#M07
+card;default;nested-alert;dark;375;Вложенный текст получает цвет и размер уведомления;Текст #bcc8dc, 11.04px;Текст #ffe0a3, 13.28px;OK;browser-matrix.txt#M08
+tag;danger;static;light;375;Нет реакции на hover и Tab;Курсор pointer, filter brightness(0.94), tabIndex -1;Курсор auto, filter none, tabIndex -1;OK;browser-matrix.txt#M09
+alert;warning;dark-contrast;dark;375;Фон соответствует теме, контраст текста ≥ 4,5;Фон #574223, контраст 1.87;Фон #574223, контраст 7.44;OK;browser-matrix.txt#M10
+switch;enabled;keyboard-space;light;375;Space включает выключенный checkbox;Фокус BODY, checked false;Фокус switch-autosave, checked true;OK;browser-matrix.txt#M11
+switch;disabled;tab-skip;dark;375;Tab проходит активные элементы и пропускает disabled;BUTTON → BUTTON → BODY;switch-notifications → switch-autosave → BUTTON;OK;browser-matrix.txt#M12
+dialog;open;modal-focus;light;1024;Модальность, автофокус, фон недоступен;:modal false, фокус Закрыть окно, фон доступен true;:modal true, фокус dialog-team, фон доступен false;OK;browser-matrix.txt#M13
+dialog;closed;escape-focus-return;dark;375;Escape закрывает окно и возвращает фокус;Окно открыто true, фокус Закрыть окно;Окно открыто false, фокус open-dialog;OK;browser-matrix.txt#M14
+layout;stand;viewport;light;320;Ширина документа совпадает с viewport;scrollWidth 380 px;scrollWidth 320 px;OK;browser-matrix.txt#M15, screenshots/after/320-light.png
+layout;stand;viewport;dark;320;Ширина документа совпадает с viewport;scrollWidth 380 px;scrollWidth 320 px;OK;browser-matrix.txt#M16, screenshots/after/320-dark.png
+layout;stand;viewport;light;375;Ширина документа совпадает с viewport;scrollWidth 380 px;scrollWidth 375 px;OK;browser-matrix.txt#M17, screenshots/after/375-light.png
+layout;stand;viewport;dark;375;Ширина документа совпадает с viewport;scrollWidth 380 px;scrollWidth 375 px;OK;browser-matrix.txt#M18, screenshots/after/375-dark.png
+layout;stand;viewport;light;768;Ширина документа совпадает с viewport;scrollWidth 768 px;scrollWidth 768 px;OK;browser-matrix.txt#M19, screenshots/after/768-light.png
+layout;stand;viewport;dark;768;Ширина документа совпадает с viewport;scrollWidth 768 px;scrollWidth 768 px;OK;browser-matrix.txt#M20, screenshots/after/768-dark.png
+layout;stand;viewport;light;1024;Ширина документа совпадает с viewport;scrollWidth 1024 px;scrollWidth 1024 px;OK;browser-matrix.txt#M21, screenshots/after/1024-light.png
+layout;stand;viewport;dark;1024;Ширина документа совпадает с viewport;scrollWidth 1024 px;scrollWidth 1024 px;OK;browser-matrix.txt#M22, screenshots/after/1024-dark.png
+layout;stand;viewport;light;1440;Ширина документа совпадает с viewport;scrollWidth 1440 px;scrollWidth 1440 px;OK;browser-matrix.txt#M23, screenshots/after/1440-light.png
+layout;stand;viewport;dark;1440;Ширина документа совпадает с viewport;scrollWidth 1440 px;scrollWidth 1440 px;OK;browser-matrix.txt#M24, screenshots/after/1440-dark.png
+layout;stand;viewport;light;1920;Ширина документа совпадает с viewport;scrollWidth 1920 px;scrollWidth 1920 px;OK;browser-matrix.txt#M25, screenshots/after/1920-light.png
+layout;stand;viewport;dark;1920;Ширина документа совпадает с viewport;scrollWidth 1920 px;scrollWidth 1920 px;OK;browser-matrix.txt#M26, screenshots/after/1920-dark.png
+button;primary;theme-change;dark;1920;Фон берётся из тёмного акцента, aria-pressed=true;Фон #2939a8, aria-pressed true;Фон #90a6ff, aria-pressed true;OK;browser-matrix.txt#M27
+button;secondary / ghost;default;dark;1024;Secondary с читаемой границей, ghost прозрачна;Фон secondary #2939a8, ghost rgb(41, 57, 168), граница #3d4b66;Фон secondary #18243d, ghost rgba(0, 0, 0, 0), граница #8294b6;OK;browser-matrix.txt#M28
+button;primary;active;light;1440;Нажатие использует отдельный active-токен;Фон при нажатии #2939a8;Фон при нажатии #1d3695;OK;browser-matrix.txt#M29
+button;sm / md / lg;sizes;light;768;Три возрастающие высоты и разные отступы;35/10.4, 44/10.4, 52/10.4 px (высота/отступ);34/12, 44/20, 53/22.4 px (высота/отступ);OK;browser-matrix.txt#M30
+field;name;invalid-submit;light;768;Enter отмечает пустые поля и фокусирует имя;Фокус BUTTON, aria-invalid true/true;Фокус user-name, aria-invalid true/true;OK;browser-matrix.txt#M31
+field;email;valid-after-edit;dark;1024;После исправления ошибки убраны, обе подсказки сохранены, submit успешен;aria-invalid false, имя описано false, Данные прошли проверку.;aria-invalid false, имя описано true, Данные прошли проверку.;OK;browser-matrix.txt#M32
+field;team;disabled;light;1440;Нативное disabled поле пропускается при Tab;Образец отсутствует;disabled true, фокус BUTTON;OK;browser-matrix.txt#M33
+card;standard;unbroken-text;light;320;Строки 200 и 100 символов остаются внутри карточки;Карточка 2081/350, кнопка 1281/1281 px;Карточка 262/262, кнопка 224/224 px;OK;browser-matrix.txt#M34
+card;nested;nested-card;dark;375;Внутренняя карточка и её alert сохраняют собственный размер текста;Вложенная карточка помещается false, текст alert 11.04px;Вложенная карточка помещается true, текст alert 13.28px;OK;browser-matrix.txt#M35
+card;featured;container-narrow;light;1440;Кнопка заполняет карточку при сужении её контейнера;Контейнер/кнопка 351/92 px, соседняя кнопка 142 → 142 px;Контейнер/кнопка 353/353 px, соседняя кнопка 142 → 142 px;OK;browser-matrix.txt#M36
+card;standard;container-wide;dark;1920;Кнопка широкой карточки сохраняет ширину auto;Контейнер/кнопка 399/110 px;Контейнер/кнопка 401/113 px;OK;browser-matrix.txt#M37
+card;nested;danger-tag-isolation;dark;375;Danger-метка сохраняет собственный цвет и базовый отступ;Фон #c12236, отступ 16 px;Фон #572635, отступ 10.4 px;OK;browser-matrix.txt#M38
+tag;all;contrast;light;1440;Четыре роли с контрастом текста ≥ 4,5;neutral 5.69, success 5.00, warning 6.14, danger 5.92;neutral 5.69, success 5.00, warning 6.14, danger 5.46;OK;browser-matrix.txt#M39
+alert;all;contrast;light;1440;Четыре роли с контрастом текста ≥ 4,5;info 16.24, success 16.25, warning 16.35, danger 5.92;info 6.11, success 5.00, warning 6.14, danger 5.46;OK;browser-matrix.txt#M40
+tag;all;contrast;dark;375;Четыре роли с контрастом текста ≥ 4,5;neutral 8.02, success 7.46, warning 7.44, danger 5.92;neutral 8.02, success 7.46, warning 7.44, danger 6.15;OK;browser-matrix.txt#M41
+alert;all;contrast;dark;375;Четыре роли с контрастом текста ≥ 4,5;info 1.57, success 1.62, warning 1.87, danger 5.92;info 7.49, success 7.46, warning 7.44, danger 6.15;OK;browser-matrix.txt#M42
+alert;info;dismiss / restore;light;1024;Закрытие убирает один элемент, восстановление возвращает четыре;3 → 4;3 → 4;OK;browser-matrix.txt#M43
+alert;info;focus-visible / close;dark;768;Enter закрывает уведомление и переводит фокус на следующее;Контур solid, фокус BODY;Контур solid, фокус Закрыть уведомление «Успешно»;OK;browser-matrix.txt#M44
+switch;on;focus-visible / toggle-off;dark;1024;Видимый фокус на треке, Space выключает активный checkbox;Контур none, checked true;Контур solid, checked false;OK;browser-matrix.txt#M45
+dialog;save;keyboard / secondary-trigger;light;320;Tab и Shift+Tab сохраняют фокус в диалоге, Enter закрывает и возвращает фокус;Shift+Tab BUTTON, Tab Закрыть окно, фокус вернулся true;Shift+Tab Закрыть окно, Tab dialog-team, фокус вернулся true;OK;browser-matrix.txt#M46
+vendor;legacy-action;isolation / click;dark;1440;Кнопка vendor открывает детали и сохраняет собственный радиус;Радиусы vendor/Atlas 0px/0px, детали открылись false;Радиусы vendor/Atlas 0px/12px, детали открылись true;OK;browser-matrix.txt#M47
+button;primary;reduced-motion;light;1440;Нет смещения при hover, переход и плавная прокрутка отключены;matrix(1, 0, 0, 1, 0, -1), 0.16s, 0.16s, 0.16s, scroll smooth;matrix(1, 0, 0, 1, 0, 0), 0s, 0s, scroll auto;OK;browser-matrix.txt#M48
