@@ -1,0 +1,18 @@
+@layer reset, legacy, tokens, base, components, states, utilities;
+@import url('./legacy.css') layer(legacy);
+@import url('./legacy-v2.css') layer(legacy.vendor-v2);
+@import url('./tokens.css') layer(tokens);
+@import url('./base.css') layer(base);
+@import url('./components.css') layer(components);
+@import url('./states.css') layer(states);
+@import url('./utilities.css') layer(utilities);
+
+@layer reset {
+  :where(*, *::before, *::after) {
+    box-sizing: border-box;
+  }
+
+  :where(body) {
+    margin: 0;
+  }
+}

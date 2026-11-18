@@ -1,0 +1,14 @@
+@media (max-width: 440px) {
+  .site-header__actions > .ui-button,
+  .hero__actions > .ui-button {
+    inline-size: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0ms;
+    --button-hover-offset: 0px;
+    scroll-behavior: auto;
+  }
+}

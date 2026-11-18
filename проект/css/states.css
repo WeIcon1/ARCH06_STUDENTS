@@ -1,0 +1,52 @@
+@media (hover: hover) {
+  .ui-button:hover:not(:disabled) {
+    background-color: var(--_button-hover);
+    transform: translateY(var(--button-hover-offset));
+  }
+
+  .ui-alert__dismiss:hover {
+    background: var(--color-surface);
+  }
+}
+
+.ui-button:active:not(:disabled) {
+  background-color: var(--_button-active);
+  transform: translateY(0);
+}
+
+.ui-button:focus-visible,
+.ui-switch input:focus-visible + .ui-switch__track {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.ui-button:disabled,
+.ui-field > :where(input, textarea):disabled {
+  border-color: var(--color-control-border);
+  background: var(--color-surface-alt);
+  color: var(--color-muted);
+  cursor: not-allowed;
+}
+
+.ui-field:has(input[aria-invalid='true']) > input[aria-invalid='true'] {
+  border-color: var(--color-danger);
+  background: var(--color-danger-bg);
+}
+
+.ui-switch input:checked + .ui-switch__track {
+  background: var(--color-accent);
+}
+
+.ui-switch input:checked + .ui-switch__track > .ui-switch__thumb {
+  background: var(--color-accent-ink);
+  transform: translateX(1.1rem);
+}
+
+.ui-switch:has(> input:disabled) {
+  cursor: not-allowed;
+  color: var(--color-muted);
+}
+
+.ui-switch input:disabled + .ui-switch__track {
+  opacity: .55;
+}

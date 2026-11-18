@@ -1,0 +1,30 @@
+.legacy-widget {
+  max-inline-size: 32rem;
+  padding: 1.1rem;
+  border: 2px dashed #8492ac;
+  background: #edf1f7;
+  color: #1d2b3e;
+  font-family: Georgia, serif;
+}
+
+:where(.legacy-widget) h3 {
+  margin: 0;
+}
+
+:where(.legacy-widget) p {
+  font-size: .86rem;
+  overflow-wrap: anywhere;
+}
+
+:where(.legacy-widget) .legacy-action {
+  border: 0;
+  background: #243b6b;
+  color: white;
+  padding: .55rem .9rem;
+  font: inherit;
+}
+
+:where(.legacy-widget) .legacy-action:focus-visible {
+  outline: 3px solid #243b6b;
+  outline-offset: 3px;
+}
